@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.example.smaboy.dragsort.adapter.MyAdpter;
 import com.example.smaboy.dragsort.bean.NewsBean;
@@ -21,6 +19,10 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerview;
+    private ArrayList<NewsBean> names;
+    private ArrayList<NewsBean> names2;
+    private MyAdpter adpter;
+    private ItemTouchHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +38,34 @@ public class MainActivity extends AppCompatActivity {
         recyclerview = findViewById(R.id.recyclerview);
 
         //模拟数据
-        final ArrayList<NewsBean> names = new ArrayList<>();
+        names = new ArrayList<>();
+        names2 = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            StringBuilder title= new StringBuilder();
-            for(int j = 0; j <= Math.random()*100; j++) {//随机标题
-              title.append("标题");
+            StringBuilder title = new StringBuilder();
+            for (int j = 0; j <= Math.random() * 100; j++) {//随机标题
+                title.append("标题");
             }
-            names.add(new NewsBean(title.toString(),"",""));
-//            names.add(new NewsBean("标题"+i,"",""));
+            names2.add(new NewsBean(title.toString(), "", ""));
+            names.add(new NewsBean("标题"+i, "", ""));
         }
+        setRecyclerViewData(names,1);
+
+
+    }
+
+    private void setRecyclerViewData(final ArrayList<NewsBean> data, int flag) {
+        //设置布局
+        setLayout(flag);
 
         //设置数据
+        setAdapterData(data);
 
-//        recyclerview.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-//        recyclerview.setLayoutManager(new GridLayoutManager(this, 4));
-        recyclerview.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+        //为recyvlerview绑定触摸事件,设置监听
+        setTouchListener(data);
+    }
 
-        final MyAdpter adpter = new MyAdpter(this, names);
-        recyclerview.setAdapter(adpter);
-
-        //为recyvlerview绑定触摸事件
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+    private void setTouchListener(final ArrayList<NewsBean> data) {
+         helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
 
@@ -65,26 +74,26 @@ public class MainActivity extends AppCompatActivity {
 
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
                 if (layoutManager instanceof GridLayoutManager) {//表格布局
-                    dragFlags=ItemTouchHelper.UP|ItemTouchHelper.DOWN|ItemTouchHelper.RIGHT|ItemTouchHelper.LEFT;
-                    swipFlags=0;
+                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT;
+                    swipFlags = 0;
 
                 } else if (layoutManager instanceof StaggeredGridLayoutManager) {//瀑布流布局
-                    dragFlags=ItemTouchHelper.UP|ItemTouchHelper.DOWN|ItemTouchHelper.RIGHT|ItemTouchHelper.LEFT;
-                    swipFlags=0;
+                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT;
+                    swipFlags = 0;
 
                 } else {//如果布局为线性布局
 
-                    dragFlags=ItemTouchHelper.UP|ItemTouchHelper.DOWN;
-                    swipFlags=ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT;
+                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                    swipFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
                 }
-                return makeMovementFlags(dragFlags,swipFlags);
+                return makeMovementFlags(dragFlags, swipFlags);
             }
 
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 //滑动事件
-                Collections.swap(names,viewHolder.getAdapterPosition(),viewHolder1.getAdapterPosition());
-                adpter.notifyItemMoved(viewHolder.getAdapterPosition(),viewHolder1.getAdapterPosition());
+                Collections.swap(data, viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
+                adpter.notifyItemMoved(viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
 
 
                 return true;
@@ -110,6 +119,45 @@ public class MainActivity extends AppCompatActivity {
         });
 
         helper.attachToRecyclerView(recyclerview);
+    }
+
+    private void setAdapterData(ArrayList<NewsBean> data) {
+        adpter = new MyAdpter(this, data);
+        recyclerview.setAdapter(adpter);
+    }
+
+    private void setLayout(int flag) {
+        if (flag == 1) {
+            recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        } else if (flag == 2) {
+            recyclerview.setLayoutManager(new GridLayoutManager(this, 4));
+        } else if (flag == 3) {
+            recyclerview.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        } else {
+            recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        }
+    }
+
+    public void test01(View view) {
+
+
+        setLayout(1);
+        setAdapterData(names);
+    }
+
+    public void test02(View view) {
+
+        setLayout(2);
+        setAdapterData(names);
+    }
+
+    public void test03(View view) {
+        setLayout(3);
+        setAdapterData(names2);
+    }
+
+    public void test04(View view) {
+
 
     }
 }
