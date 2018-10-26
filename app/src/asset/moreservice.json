@@ -1,0 +1,344 @@
+{
+  "title": "更多服务",
+  "edit": "编辑",
+  "cancel": "取消",
+  "finish": "完成",
+  "edit_my_service": "编辑我的服务",
+  "defaul_sort": {
+    "title": "默认排序",
+    "before": {
+      "title": "行前",
+      "services": [
+        {
+          "title": "校园行",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "优惠专区",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "境外wifi",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "店面点餐",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "逾重行李",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "特殊旅客",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "信息服务",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "保险专区",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "惠价直销",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "优选座位",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "客票验真",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "旅游度假",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "机票+酒店",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "机场接送",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "酒店预订",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "预办登机",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "公告",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "迪士尼航班",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        }
+      ]
+    },
+    "middle": {
+      "title": "行中",
+      "services": [
+        {
+          "title": "航班动态",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "机场服务",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "改期退票",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "机上WI-FI",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "代泊车",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        }
+      ]
+    },
+    "behind": {
+      "title": "行后",
+      "services": [
+        {
+          "title": "会员服务",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "意见反馈",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "航延取消",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "积分商城",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "企业客户",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        }
+      ]
+    }
+  },
+  "intelligent_sort": {
+    "title": "智能排序",
+    "services": {
+      "title": "智能排序",
+      "services": [
+        {
+          "title": "校园行",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "优惠专区",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "境外wifi",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "店面点餐",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "逾重行李",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "特殊旅客",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "信息服务",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "保险专区",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "惠价直销",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "优选座位",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "客票验真",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "旅游度假",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "机票+酒店",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "机场接送",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "酒店预订",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "预办登机",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "公告",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "迪士尼航班",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "航班动态",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "机场服务",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "改期退票",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "机上WI-FI",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "代泊车",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "会员服务",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "意见反馈",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "航延取消",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "积分商城",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        },
+        {
+          "title": "企业客户",
+          "url": "https://qqe2.com",
+          "imgUrl": ""
+        }
+      ]
+    }
+  },
+  "myService": {
+    "title": "我的服务",
+    "title_tip": "(按住拖动调整排序)",
+    "services": [
+      {
+        "title": "境外wifi",
+        "url": "https://qqe2.com",
+        "imgUrl": ""
+      },
+      {
+        "title": "优惠专区",
+        "url": "https://qqe2.com",
+        "imgUrl": ""
+      },
+      {
+        "title": "地面点餐",
+        "url": "https://qqe2.com/",
+        "imgUrl": ""
+      },
+      {
+        "title": "会员服务",
+        "url": "https://qqe2.com",
+        "imgUrl": "\"\""
+      },
+      {
+        "title": "航班动态",
+        "url": "https://qqe2.com/",
+        "imgUrl": ""
+      }
+    ]
+  }
+}

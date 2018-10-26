@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         //设置数据
 
-        recyclerview.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+//        recyclerview.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 //        recyclerview.setLayoutManager(new GridLayoutManager(this, 4));
-//        recyclerview.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        recyclerview.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
 
         final MyAdpter adpter = new MyAdpter(this, names);
         recyclerview.setAdapter(adpter);
