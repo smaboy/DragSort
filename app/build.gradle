@@ -16,6 +16,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    //打debug包的命令
+    task appStart(type: Exec, dependsOn: 'installDebug') {
+        // linux
+        def adb = android.getAdbExe().toString()
+        commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.example.smaboy.dragsort/com.example.smaboy.dragsort.MainActivity'
+    }
 }
 
 dependencies {
