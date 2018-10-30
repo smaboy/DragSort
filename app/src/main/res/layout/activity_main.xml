@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:text="瀑布流布局"
+            android:text="瀑布流"
             android:onClick="test03"/>
         <Button
             android:layout_width="0dp"

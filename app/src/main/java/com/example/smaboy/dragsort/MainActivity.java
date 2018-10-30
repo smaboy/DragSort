@@ -1,5 +1,6 @@
 package com.example.smaboy.dragsort;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             for (int j = 0; j <= Math.random() * 100; j++) {//随机标题
                 title.append("标题");
             }
-            names2.add(new NewsBean(title.toString(), "", ""));
+            names2.add(new NewsBean(title.toString()+i, "", ""));
             names.add(new NewsBean("标题"+i, "", ""));
         }
         setRecyclerViewData(names,1);
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 //侧滑事件
-                names.remove(viewHolder.getAdapterPosition());
+                data.remove(viewHolder.getAdapterPosition());
                 adpter.notifyItemRemoved(viewHolder.getAdapterPosition());
 
             }
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         helper.attachToRecyclerView(recyclerview);
+
     }
 
     private void setAdapterData(ArrayList<NewsBean> data) {
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void test04(View view) {
 
+        startActivity(new Intent(this,SecondActivity.class));
 
     }
 }
