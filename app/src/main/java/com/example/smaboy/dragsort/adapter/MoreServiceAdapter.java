@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ import com.example.smaboy.dragsort.R;
 import com.example.smaboy.dragsort.SecondActivity;
 import com.example.smaboy.dragsort.bean.MoreService;
 import com.example.smaboy.dragsort.view.MyGridView;
+
+import java.util.Collections;
 
 /**
  * 类名: MoreServiceAdapter
@@ -88,6 +91,17 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             //设置数据
             holder.title.setText(moreService.getMyService().getTitle());
 
+
+            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+            layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
+            layoutParams.height = 1;
+            holder.line.setLayoutParams(layoutParams);
+
+            holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
+            MyRecyclerViewAdapter myRecyclerViewAdapter = new MyRecyclerViewAdapter(mContext, moreService.getMyService(), isEdit);
+            holder.recyclerView.setAdapter(myRecyclerViewAdapter);
+
             if(isEdit){
                 holder.edit.setVisibility(View.GONE);
 
@@ -95,6 +109,10 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 holder.tv_my_service_tip.setVisibility(View.VISIBLE);
 
                 //此处还得设置recycerview的拖拽状态（开启）
+                setTouchListener(myRecyclerViewAdapter,holder.recyclerView,moreService.getMyService());
+
+
+
 
             } else {
 
@@ -104,18 +122,11 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 holder.tv_my_service_tip.setVisibility(View.GONE);
 
 
-                //此处还得设置recycerview的拖拽状态（关闭）
+                //此处还得设置recycerview的拖拽状态（关闭），不设置触摸监听即可
+
+
 
             }
-
-            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
-            layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
-            layoutParams.height = 1;
-            holder.line.setLayoutParams(layoutParams);
-
-            holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
-            holder.recyclerView.setAdapter(new MyRecyclerViewAdapter(mContext, moreService.getMyService(),isEdit));
 
             //设置编辑按钮的监听
             holder.edit.setOnClickListener(new View.OnClickListener() {
@@ -303,6 +314,8 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             edit = itemView.findViewById(R.id.tv_edit);
             tv_my_service_tip = itemView.findViewById(R.id.tv_my_service_tip);
         }
+
+
     }
 
     class BeforeViewHolder extends RecyclerView.ViewHolder {
@@ -380,6 +393,64 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int dp2px(int dp) {
 
         return (int) (mContext.getResources().getDisplayMetrics().density * dp);
+    }
+
+    private void setTouchListener(final MyRecyclerViewAdapter adapter, RecyclerView recyclerView, final MoreService.MyServiceBean myService) {
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+
+                int dragFlags;//拖拽
+                int swipFlags;//侧滑删除
+
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                if (layoutManager instanceof GridLayoutManager) {//表格布局
+                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT;
+                    swipFlags = 0;
+
+                } else if (layoutManager instanceof StaggeredGridLayoutManager) {//瀑布流布局
+                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT;
+                    swipFlags = 0;
+
+                } else {//如果布局为线性布局
+
+                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                    swipFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+                }
+                return makeMovementFlags(dragFlags, swipFlags);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                //滑动事件
+                Collections.swap(myService.getServices(), viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
+                adapter.notifyItemMoved(viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
+
+
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+                //侧滑事件
+                myService.getServices().remove(viewHolder.getAdapterPosition());
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {//默认支持长按拖拽
+                return super.isLongPressDragEnabled();
+            }
+
+            @Override
+            public boolean isItemViewSwipeEnabled() {//默认支持侧滑
+                return super.isItemViewSwipeEnabled();
+            }
+        });
+
+        helper.attachToRecyclerView(recyclerView);
+
     }
 
 }

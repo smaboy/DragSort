@@ -27,7 +27,7 @@ public class GridViewAdapter extends BaseAdapter {
     private final Context mContext;
     private final List<ServiceBean> services;
 
-    public GridViewAdapter(Context mContext, List<ServiceBean> services) {
+    GridViewAdapter(Context mContext, List<ServiceBean> services) {
         this.mContext = mContext;
         this.services = services;
     }
