@@ -54,7 +54,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             myViewHolder.iv_edit_tag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,myService.getServices().get(i).getTitle(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext,myService.getServices().get(i).getTitle(), Toast.LENGTH_SHORT).show();
+                    myService.getServices().remove(i);
+                    notifyItemRemoved(i);
                 }
             });
 
