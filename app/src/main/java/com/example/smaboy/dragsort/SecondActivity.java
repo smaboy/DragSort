@@ -33,13 +33,13 @@ import java.io.Reader;
  */
 public class SecondActivity extends Activity implements View.OnClickListener {
 
-    private TextView tv_cancel;
-    private TextView tv_more_service;
-    private TextView tv_sort;
+    public TextView tv_cancel;
+    public TextView tv_more_service;
+    public TextView tv_sort;
     private RecyclerView recyclerview;
     private MoreService moreService;
-    private Boolean isEdit;//判断当前是否为编辑模式
-    private Boolean isDefaultSort;//判断当前是否为默认排序
+    public Boolean isEdit;//判断当前是否为编辑模式
+    public Boolean isDefaultSort;//判断当前是否为默认排序
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -152,11 +152,53 @@ public class SecondActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_cancel://取消
+                //该事件的发生说明现在已处于编辑模式
+                tv_cancel.setVisibility(View.GONE);
+                tv_more_service.setText(moreService.getTitle());
+                if(isDefaultSort){
+
+                    tv_sort.setText(moreService.getIntelligent_sort().getTitle());
+                } else {
+                    tv_sort.setText(moreService.getDefaul_sort().getTitle());
+
+                }
+
+
+                //取消编辑状态,刷新适配器的数据
+
+                isEdit=false;
+
+                //刷新recyclerview
+                moreServiceAdapter.setEdit(false);
+                moreServiceAdapter.notifyDataSetChanged();
+
 
                 break;
             case R.id.tv_sort://默认排序、智能排序、完成
                 if (isEdit) {//是否为编辑模式
-                    //编辑模式
+                    //编辑模式(此时显示的是完成，点击之后应该回归到上次的排序，并且保存我的服务中的排序和新增及删除的服务)
+                    //1.保存我的服务，更新标题栏数据
+
+//                    saveMyService();
+                    tv_cancel.setVisibility(View.GONE);
+                    tv_more_service.setText(moreService.getTitle());
+                    if(isDefaultSort){
+
+                        tv_sort.setText(moreService.getIntelligent_sort().getTitle());
+                    } else {
+                        tv_sort.setText(moreService.getDefaul_sort().getTitle());
+
+                    }
+
+
+                    //取消编辑状态,刷新适配器的数据
+
+                    isEdit=false;
+
+                    //刷新recyclerview
+                    moreServiceAdapter.setEdit(false);
+                    moreServiceAdapter.notifyDataSetChanged();
+
 
                 } else {
 
@@ -177,6 +219,8 @@ public class SecondActivity extends Activity implements View.OnClickListener {
                 }
 
                 break;
+
+
         }
 
     }

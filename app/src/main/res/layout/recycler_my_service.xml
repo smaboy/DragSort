@@ -6,12 +6,42 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tv_my_service_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="我的服务"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_my_service_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="我的服务"
+            android:textColor="@android:color/black"
+            />
+
+        <TextView
+            android:id="@+id/tv_my_service_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tv_my_service_title"
+            android:layout_marginStart="5dp"
+            android:textSize="12sp"
+            tools:text="按住拖动排序"/>
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="编辑"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/blue_shape_r2_bg"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="12sp"
+            />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_line"

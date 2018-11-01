@@ -25,10 +25,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     private Context mContext;
     private MoreService.MyServiceBean myService;
+    private Boolean isEdit;
 
-    MyRecyclerViewAdapter(Context mContext, MoreService.MyServiceBean myService) {
+    MyRecyclerViewAdapter(Context mContext, MoreService.MyServiceBean myService, Boolean isEdit) {
         this.mContext = mContext;
         this.myService = myService;
+        this.isEdit=isEdit;
 
     }
 
