@@ -2,14 +2,18 @@ package com.example.smaboy.dragsort.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.TextView;
 
 import com.example.smaboy.dragsort.R;
 import com.example.smaboy.dragsort.SecondActivity;
 import com.example.smaboy.dragsort.bean.MoreService;
+import com.example.smaboy.dragsort.view.MyGridView;
 
 /**
  * 类名: MoreServiceAdapter
@@ -53,7 +57,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        RecyclerView.ViewHolder holder=null;
+        RecyclerView.ViewHolder holder;
         if(getItemViewType(i)==MY_SERVICE){
 
             holder=new MyServiceViewHolder(layoutInflater.inflate(R.layout.recycler_my_service,null));
@@ -79,19 +83,34 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(getItemViewType(i)==MY_SERVICE){
 
             MyServiceViewHolder holder= (MyServiceViewHolder) viewHolder;
+            //设置数据
+            holder.title.setText(moreService.getMyService().getTitle());
+            holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext,4));
+            holder.recyclerView.setAdapter(new MyRecyclerViewAdapter(mContext,moreService.getMyService()));
 
         } else if(getItemViewType(i)==BEFORE){
             BeforeViewHolder holder= (BeforeViewHolder) viewHolder;
-
+            //设置数据
+            holder.title.setText(moreService.getDefaul_sort().getBefore().getTitle());
+            holder.gridView.setAdapter(new GridViewAdapter(mContext,moreService.getDefaul_sort().getBefore().getServices()));
         }else if(getItemViewType(i)==MIDDLE){
 
             MiddleViewHolder holder= (MiddleViewHolder) viewHolder;
+            //设置数据
+            holder.title.setText(moreService.getDefaul_sort().getMiddle().getTitle());
+            holder.gridView.setAdapter(new GridViewAdapter(mContext,moreService.getDefaul_sort().getMiddle().getServices()));
         } else if(getItemViewType(i)==BEHIND){
 
             BehindViewHolder holder= (BehindViewHolder) viewHolder;
+            //设置数据
+            holder.title.setText(moreService.getDefaul_sort().getBehind().getTitle());
+            holder.gridView.setAdapter(new GridViewAdapter(mContext,moreService.getDefaul_sort().getBehind().getServices()));
         }else if(getItemViewType(i)==INTELLIGENT) {
 
             IntelligentViewHolder holder= (IntelligentViewHolder) viewHolder;
+            //设置数据
+            holder.title.setText(moreService.getIntelligent_sort().getTitle());
+            holder.gridView.setAdapter(new GridViewAdapter(mContext,moreService.getIntelligent_sort().getServices().getServices()));
         }
     }
 
@@ -135,32 +154,53 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class MyServiceViewHolder extends RecyclerView.ViewHolder{
 
-        public MyServiceViewHolder(@NonNull View itemView) {
+        TextView title;
+        RecyclerView recyclerView;
+        MyServiceViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            title = itemView.findViewById(R.id.tv_my_service_title);
+            recyclerView = itemView.findViewById(R.id.recycler_my_service);
         }
     }
     class BeforeViewHolder extends RecyclerView.ViewHolder{
 
-        public BeforeViewHolder(@NonNull View itemView) {
+        TextView title;
+        MyGridView gridView;
+        BeforeViewHolder(@NonNull View itemView) {
             super(itemView);
+            title = itemView.findViewById(R.id.tv_before_title);
+            gridView = itemView.findViewById(R.id.gv_before_grid_view);
         }
     }
     class MiddleViewHolder extends RecyclerView.ViewHolder{
 
-        public MiddleViewHolder(@NonNull View itemView) {
+        TextView title;
+        MyGridView gridView;
+        MiddleViewHolder(@NonNull View itemView) {
             super(itemView);
+            title = itemView.findViewById(R.id.tv_middle_title);
+            gridView = itemView.findViewById(R.id.gv_middle_grid_view);
         }
     }
     class BehindViewHolder extends RecyclerView.ViewHolder{
 
-        public BehindViewHolder(@NonNull View itemView) {
+        TextView title;
+        MyGridView gridView;
+        BehindViewHolder(@NonNull View itemView) {
             super(itemView);
+            title = itemView.findViewById(R.id.tv_behind_title);
+            gridView = itemView.findViewById(R.id.gv_behind_grid_view);
         }
     }
     class IntelligentViewHolder extends RecyclerView.ViewHolder{
 
-        public IntelligentViewHolder(@NonNull View itemView) {
+        TextView title;
+        MyGridView gridView;
+        IntelligentViewHolder(@NonNull View itemView) {
             super(itemView);
+            title = itemView.findViewById(R.id.tv_intelligent_title);
+            gridView = itemView.findViewById(R.id.gv_intelligent_grid_view);
         }
     }
 

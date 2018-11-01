@@ -91,7 +91,7 @@ public class SecondActivity extends Activity implements View.OnClickListener {
         tv_cancel.setVisibility(View.GONE);
         tv_cancel.setText(TextUtils.isEmpty(moreService.getCancel()) ? "" : moreService.getCancel());
         tv_more_service.setText(TextUtils.isEmpty(moreService.getTitle()) ? "" : moreService.getTitle());
-        tv_sort.setText(TextUtils.isEmpty(moreService.getDefaul_sort().getTitle()) ? "" : moreService.getDefaul_sort().getTitle());
+        tv_sort.setText(TextUtils.isEmpty(moreService.getIntelligent_sort().getTitle()) ? "" : moreService.getIntelligent_sort().getTitle());
 
         //设置recyclerview
         recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

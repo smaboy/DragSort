@@ -146,7 +146,7 @@ public class MoreService {
              */
 
             private String title;
-            private List<ServicesBean> services;
+            private List<ServiceBean> services;
 
             public String getTitle() {
                 return title;
@@ -156,49 +156,14 @@ public class MoreService {
                 this.title = title;
             }
 
-            public List<ServicesBean> getServices() {
+            public List<ServiceBean> getServices() {
                 return services;
             }
 
-            public void setServices(List<ServicesBean> services) {
+            public void setServices(List<ServiceBean> services) {
                 this.services = services;
             }
 
-            public static class ServicesBean {
-                /**
-                 * title : 校园行
-                 * url : https://qqe2.com
-                 * imgUrl :
-                 */
-
-                private String title;
-                private String url;
-                private String imgUrl;
-
-                public String getTitle() {
-                    return title;
-                }
-
-                public void setTitle(String title) {
-                    this.title = title;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-
-                public String getImgUrl() {
-                    return imgUrl;
-                }
-
-                public void setImgUrl(String imgUrl) {
-                    this.imgUrl = imgUrl;
-                }
-            }
         }
 
         public static class MiddleBean {
@@ -208,7 +173,7 @@ public class MoreService {
              */
 
             private String title;
-            private List<ServicesBeanX> services;
+            private List<ServiceBean> services;
 
             public String getTitle() {
                 return title;
@@ -218,49 +183,15 @@ public class MoreService {
                 this.title = title;
             }
 
-            public List<ServicesBeanX> getServices() {
+            public List<ServiceBean> getServices() {
                 return services;
             }
 
-            public void setServices(List<ServicesBeanX> services) {
+            public void setServices(List<ServiceBean> services) {
                 this.services = services;
             }
 
-            public static class ServicesBeanX {
-                /**
-                 * title : 航班动态
-                 * url : https://qqe2.com
-                 * imgUrl :
-                 */
 
-                private String title;
-                private String url;
-                private String imgUrl;
-
-                public String getTitle() {
-                    return title;
-                }
-
-                public void setTitle(String title) {
-                    this.title = title;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-
-                public String getImgUrl() {
-                    return imgUrl;
-                }
-
-                public void setImgUrl(String imgUrl) {
-                    this.imgUrl = imgUrl;
-                }
-            }
         }
 
         public static class BehindBean {
@@ -270,7 +201,7 @@ public class MoreService {
              */
 
             private String title;
-            private List<ServicesBeanXX> services;
+            private List<ServiceBean> services;
 
             public String getTitle() {
                 return title;
@@ -280,49 +211,14 @@ public class MoreService {
                 this.title = title;
             }
 
-            public List<ServicesBeanXX> getServices() {
+            public List<ServiceBean> getServices() {
                 return services;
             }
 
-            public void setServices(List<ServicesBeanXX> services) {
+            public void setServices(List<ServiceBean> services) {
                 this.services = services;
             }
 
-            public static class ServicesBeanXX {
-                /**
-                 * title : 会员服务
-                 * url : https://qqe2.com
-                 * imgUrl :
-                 */
-
-                private String title;
-                private String url;
-                private String imgUrl;
-
-                public String getTitle() {
-                    return title;
-                }
-
-                public void setTitle(String title) {
-                    this.title = title;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-
-                public String getImgUrl() {
-                    return imgUrl;
-                }
-
-                public void setImgUrl(String imgUrl) {
-                    this.imgUrl = imgUrl;
-                }
-            }
         }
     }
 
@@ -358,7 +254,7 @@ public class MoreService {
              */
 
             private String title;
-            private List<ServicesBeanXXX> services;
+            private List<ServiceBean> services;
 
             public String getTitle() {
                 return title;
@@ -368,11 +264,11 @@ public class MoreService {
                 this.title = title;
             }
 
-            public List<ServicesBeanXXX> getServices() {
+            public List<ServiceBean> getServices() {
                 return services;
             }
 
-            public void setServices(List<ServicesBeanXXX> services) {
+            public void setServices(List<ServiceBean> services) {
                 this.services = services;
             }
 
@@ -423,7 +319,7 @@ public class MoreService {
 
         private String title;
         private String title_tip;
-        private List<ServicesBeanXXXXX> services;
+        private List<ServiceBean> services;
 
         public String getTitle() {
             return title;
@@ -441,48 +337,13 @@ public class MoreService {
             this.title_tip = title_tip;
         }
 
-        public List<ServicesBeanXXXXX> getServices() {
+        public List<ServiceBean> getServices() {
             return services;
         }
 
-        public void setServices(List<ServicesBeanXXXXX> services) {
+        public void setServices(List<ServiceBean> services) {
             this.services = services;
         }
 
-        public static class ServicesBeanXXXXX {
-            /**
-             * title : 境外wifi
-             * url : https://qqe2.com
-             * imgUrl :
-             */
-
-            private String title;
-            private String url;
-            private String imgUrl;
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public String getImgUrl() {
-                return imgUrl;
-            }
-
-            public void setImgUrl(String imgUrl) {
-                this.imgUrl = imgUrl;
-            }
-        }
     }
 }
