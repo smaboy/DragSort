@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.smaboy.dragsort.R;
@@ -85,6 +86,13 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             MyServiceViewHolder holder= (MyServiceViewHolder) viewHolder;
             //设置数据
             holder.title.setText(moreService.getMyService().getTitle());
+
+            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+            layoutParams.width=mContext.getResources().getDisplayMetrics().widthPixels;
+            layoutParams.height=1;
+            holder.line.setLayoutParams(layoutParams);
+
             holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext,4));
             holder.recyclerView.setAdapter(new MyRecyclerViewAdapter(mContext,moreService.getMyService()));
 
@@ -92,24 +100,52 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             BeforeViewHolder holder= (BeforeViewHolder) viewHolder;
             //设置数据
             holder.title.setText(moreService.getDefaul_sort().getBefore().getTitle());
+
+            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+            layoutParams.width=mContext.getResources().getDisplayMetrics().widthPixels;
+            layoutParams.height=1;
+            holder.line.setLayoutParams(layoutParams);
+
             holder.gridView.setAdapter(new GridViewAdapter(mContext,moreService.getDefaul_sort().getBefore().getServices()));
         }else if(getItemViewType(i)==MIDDLE){
 
             MiddleViewHolder holder= (MiddleViewHolder) viewHolder;
             //设置数据
             holder.title.setText(moreService.getDefaul_sort().getMiddle().getTitle());
+
+            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+            layoutParams.width=mContext.getResources().getDisplayMetrics().widthPixels;
+            layoutParams.height=1;
+            holder.line.setLayoutParams(layoutParams);
+
             holder.gridView.setAdapter(new GridViewAdapter(mContext,moreService.getDefaul_sort().getMiddle().getServices()));
         } else if(getItemViewType(i)==BEHIND){
 
             BehindViewHolder holder= (BehindViewHolder) viewHolder;
             //设置数据
             holder.title.setText(moreService.getDefaul_sort().getBehind().getTitle());
+
+            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+            layoutParams.width=mContext.getResources().getDisplayMetrics().widthPixels;
+            layoutParams.height=1;
+            holder.line.setLayoutParams(layoutParams);
+
             holder.gridView.setAdapter(new GridViewAdapter(mContext,moreService.getDefaul_sort().getBehind().getServices()));
         }else if(getItemViewType(i)==INTELLIGENT) {
 
             IntelligentViewHolder holder= (IntelligentViewHolder) viewHolder;
             //设置数据
             holder.title.setText(moreService.getIntelligent_sort().getTitle());
+
+            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+            layoutParams.width=mContext.getResources().getDisplayMetrics().widthPixels;
+            layoutParams.height=1;
+            holder.line.setLayoutParams(layoutParams);
+
             holder.gridView.setAdapter(new GridViewAdapter(mContext,moreService.getIntelligent_sort().getServices().getServices()));
         }
     }
@@ -156,30 +192,36 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         TextView title;
         RecyclerView recyclerView;
+        TextView line;
         MyServiceViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.tv_my_service_title);
             recyclerView = itemView.findViewById(R.id.recycler_my_service);
+            line = itemView.findViewById(R.id.tv_line);
         }
     }
     class BeforeViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
         MyGridView gridView;
+        TextView line;
         BeforeViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tv_before_title);
             gridView = itemView.findViewById(R.id.gv_before_grid_view);
+            line = itemView.findViewById(R.id.tv_line);
         }
     }
     class MiddleViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
+        TextView line;
         MyGridView gridView;
         MiddleViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tv_middle_title);
+            line = itemView.findViewById(R.id.tv_line);
             gridView = itemView.findViewById(R.id.gv_middle_grid_view);
         }
     }
@@ -187,20 +229,24 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         TextView title;
         MyGridView gridView;
+        TextView line;
         BehindViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tv_behind_title);
             gridView = itemView.findViewById(R.id.gv_behind_grid_view);
+            line = itemView.findViewById(R.id.tv_line);
         }
     }
     class IntelligentViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
         MyGridView gridView;
+        TextView line;
         IntelligentViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tv_intelligent_title);
             gridView = itemView.findViewById(R.id.gv_intelligent_grid_view);
+            line = itemView.findViewById(R.id.tv_line);
         }
     }
 
@@ -219,4 +265,11 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void setDefaultSort(Boolean defaultSort) {
         isDefaultSort = defaultSort;
     }
+
+    private int dp2px(int dp){
+
+        return (int) (mContext.getResources().getDisplayMetrics().density*dp);
+    }
 }
+
+

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.smaboy.dragsort.R;
@@ -50,17 +51,16 @@ public class GridViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         MyViewHolder holder;
         View view;
-        if(convertView==null) {
-            view=LayoutInflater.from(mContext).inflate(R.layout.grid_view_item, null);
+        if (convertView == null) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.grid_view_item, null);
 
 
-        }else {
-            view=convertView;
+        } else {
+            view = convertView;
         }
 
-        holder=new MyViewHolder(view);
+        holder = new MyViewHolder(view);
 
-        //设置数据
         holder.imageView.setImageResource(R.mipmap.ic_launcher_round);
         holder.title.setText(services.get(position).getTitle());
 
@@ -74,16 +74,17 @@ public class GridViewAdapter extends BaseAdapter {
         TextView title;
         View mView;
 
-         MyViewHolder(View view) {
-            imageView=view.findViewById(R.id.image);
-             title=view.findViewById(R.id.tv_grid_view_title);
+        MyViewHolder(View view) {
+            imageView = view.findViewById(R.id.image);
+            title = view.findViewById(R.id.tv_grid_view_title);
 
-             mView=view;
+
+            mView = view;
 
         }
 
-        View getView(){
-             return mView;
+        View getView() {
+            return mView;
         }
     }
 
