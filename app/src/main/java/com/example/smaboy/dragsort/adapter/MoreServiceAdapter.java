@@ -171,7 +171,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             layoutParams.height = 1;
             holder.line.setLayoutParams(layoutParams);
 
-            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBefore().getServices()));
+            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBefore().getServices(),isEdit));
             holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -192,7 +192,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             layoutParams.height = 1;
             holder.line.setLayoutParams(layoutParams);
 
-            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getMiddle().getServices()));
+            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getMiddle().getServices(), isEdit));
             holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -213,7 +213,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             layoutParams.height = 1;
             holder.line.setLayoutParams(layoutParams);
 
-            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBehind().getServices()));
+            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBehind().getServices(), isEdit));
             holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -235,7 +235,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             layoutParams.height = 1;
             holder.line.setLayoutParams(layoutParams);
 
-            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getIntelligent_sort().getServices().getServices()));
+            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getIntelligent_sort().getServices().getServices(), isEdit));
             holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

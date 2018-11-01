@@ -1,17 +1,17 @@
 package com.example.smaboy.dragsort.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.smaboy.dragsort.EmptyActivity;
 import com.example.smaboy.dragsort.R;
-import com.example.smaboy.dragsort.bean.MoreService;
 import com.example.smaboy.dragsort.bean.ServiceBean;
 
 import java.util.List;
@@ -26,10 +26,13 @@ public class GridViewAdapter extends BaseAdapter {
 
     private final Context mContext;
     private final List<ServiceBean> services;
+    private final Boolean isEdit;
 
-    GridViewAdapter(Context mContext, List<ServiceBean> services) {
+
+    GridViewAdapter(Context mContext, List<ServiceBean> services, Boolean isEdit) {
         this.mContext = mContext;
         this.services = services;
+        this.isEdit = isEdit;
     }
 
     @Override
@@ -48,7 +51,7 @@ public class GridViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         MyViewHolder holder;
         View view;
         if (convertView == null) {
@@ -64,6 +67,32 @@ public class GridViewAdapter extends BaseAdapter {
         holder.imageView.setImageResource(R.mipmap.ic_launcher_round);
         holder.title.setText(services.get(position).getTitle());
 
+        if(isEdit){
+            holder.iv_edit_tag.setVisibility(View.VISIBLE);
+            holder.iv_edit_tag.setImageResource(R.drawable.add);
+
+            holder.iv_edit_tag.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "添加", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            holder.iv_edit_tag.setVisibility(View.GONE);
+
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent();
+                    intent.setClass(mContext,EmptyActivity.class);
+                    intent.putExtra("title",services.get(position).getTitle());
+                    mContext.startActivity(intent);
+                }
+            });
+
+        }
+
 
         return holder.mView;
     }
@@ -71,11 +100,13 @@ public class GridViewAdapter extends BaseAdapter {
     class MyViewHolder {
 
         ImageView imageView;
+        ImageView iv_edit_tag;
         TextView title;
         View mView;
 
         MyViewHolder(View view) {
             imageView = view.findViewById(R.id.image);
+            iv_edit_tag = view.findViewById(R.id.iv_edit_tag);
             title = view.findViewById(R.id.tv_grid_view_title);
 
 
@@ -83,9 +114,6 @@ public class GridViewAdapter extends BaseAdapter {
 
         }
 
-        View getView() {
-            return mView;
-        }
     }
 
 }
