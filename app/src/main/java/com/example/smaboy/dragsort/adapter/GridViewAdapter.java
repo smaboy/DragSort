@@ -69,12 +69,25 @@ public class GridViewAdapter extends BaseAdapter {
 
         if(isEdit){
             holder.iv_edit_tag.setVisibility(View.VISIBLE);
-            holder.iv_edit_tag.setImageResource(R.drawable.add);
+
+            //设置右上角标识图标
+            if(services.get(position).getAdded()){//已经被添加
+                holder.iv_edit_tag.setImageResource(R.drawable.added);
+            } else {
+                holder.iv_edit_tag.setImageResource(R.drawable.add);
+            }
+
+
 
             holder.iv_edit_tag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, "添加", Toast.LENGTH_SHORT).show();
+                    if(services.get(position).getAdded()){//已经被添加
+                        Toast.makeText(mContext, "已经被添加", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, "可以添加", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
 

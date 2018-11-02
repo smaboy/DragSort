@@ -11,14 +11,14 @@
       "services": [
         {
         "id": "fw_xyx",
-        "added": false,
+        "added": true,
         "title": "校园行",
         "url": "https://qqe2.com",
         "imgUrl": ""
       },
         {
           "id": "fw_yhzq",
-          "added": false,
+          "added": true,
           "title": "优惠专区",
           "url": "https://qqe2.com",
           "imgUrl": ""
