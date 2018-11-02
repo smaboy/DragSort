@@ -10,91 +10,127 @@
       "title": "行前",
       "services": [
         {
-          "title": "校园行",
-          "url": "https://qqe2.com",
-          "imgUrl": ""
-        },
+        "id": "fw_xyx",
+        "added": false,
+        "title": "校园行",
+        "url": "https://qqe2.com",
+        "imgUrl": ""
+      },
         {
+          "id": "fw_yhzq",
+          "added": false,
           "title": "优惠专区",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jw_wifi",
+          "added": false,
           "title": "境外wifi",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_dmdc",
+          "added": false,
           "title": "店面点餐",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_yzxl",
+          "added": false,
           "title": "逾重行李",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_tslk",
+          "added": false,
           "title": "特殊旅客",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_xxfw",
+          "added": false,
           "title": "信息服务",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_bxzq",
+          "added": false,
           "title": "保险专区",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_hjzx",
+          "added": false,
           "title": "惠价直销",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_yxzw",
+          "added": false,
           "title": "优选座位",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_kpyz",
+          "added": false,
           "title": "客票验真",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_lydj",
+          "added": false,
           "title": "旅游度假",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jp_jd",
+          "added": false,
           "title": "机票+酒店",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jcjs",
+          "added": false,
           "title": "机场接送",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jdyd",
+          "added": false,
           "title": "酒店预订",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_ybdj",
+          "added": false,
           "title": "预办登机",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_gg",
+          "added": false,
           "title": "公告",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_dsnhb",
+          "added": false,
           "title": "迪士尼航班",
           "url": "https://qqe2.com",
           "imgUrl": ""
@@ -105,26 +141,36 @@
       "title": "行中",
       "services": [
         {
-          "title": "航班动态",
-          "url": "https://qqe2.com",
-          "imgUrl": ""
-        },
+        "id": "fw_hbdt",
+        "added": false,
+        "title": "航班动态",
+        "url": "https://qqe2.com",
+        "imgUrl": ""
+      },
         {
+          "id": "fw_jcfw",
+          "added": false,
           "title": "机场服务",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_gqtp",
+          "added": false,
           "title": "改期退票",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jc_wifi",
+          "added": false,
           "title": "机上WI-FI",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_dbc",
+          "added": false,
           "title": "代泊车",
           "url": "https://qqe2.com",
           "imgUrl": ""
@@ -135,26 +181,36 @@
       "title": "行后",
       "services": [
         {
-          "title": "会员服务",
-          "url": "https://qqe2.com",
-          "imgUrl": ""
+        "id": "fw_hyfw",
+        "added": false,
+        "title": "会员服务",
+        "url": "https://qqe2.com",
+        "imgUrl": ""
         },
         {
+          "id": "fw_yjfk",
+          "added": false,
           "title": "意见反馈",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_hyqx",
+          "added": false,
           "title": "航延取消",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jfsc",
+          "added": false,
           "title": "积分商城",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_gykh",
+          "added": false,
           "title": "企业客户",
           "url": "https://qqe2.com",
           "imgUrl": ""
@@ -168,141 +224,197 @@
       "title": "智能排序",
       "services": [
         {
-          "title": "校园行",
-          "url": "https://qqe2.com",
-          "imgUrl": ""
+        "id": "fw_xyx",
+        "added": false,
+        "title": "校园行",
+        "url": "https://qqe2.com",
+        "imgUrl": ""
         },
         {
+          "id": "fw_yhzq",
+          "added": false,
           "title": "优惠专区",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jw_wifi",
+          "added": false,
           "title": "境外wifi",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_dmdc",
+          "added": false,
           "title": "店面点餐",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_yzxl",
+          "added": false,
           "title": "逾重行李",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_tslk",
+          "added": false,
           "title": "特殊旅客",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_xxfw",
+          "added": false,
           "title": "信息服务",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_bxzq",
+          "added": false,
           "title": "保险专区",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_hjzx",
+          "added": false,
           "title": "惠价直销",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_yxzw",
+          "added": false,
           "title": "优选座位",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_kpyz",
+          "added": false,
           "title": "客票验真",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_lydj",
+          "added": false,
           "title": "旅游度假",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jp_jd",
+          "added": false,
           "title": "机票+酒店",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jcjs",
+          "added": false,
           "title": "机场接送",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jdyd",
+          "added": false,
           "title": "酒店预订",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_ybdj",
+          "added": false,
           "title": "预办登机",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_gg",
+          "added": false,
           "title": "公告",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_dsnhb",
+          "added": false,
           "title": "迪士尼航班",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_hbdt",
+          "added": false,
           "title": "航班动态",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jcfw",
+          "added": false,
           "title": "机场服务",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_gqtp",
+          "added": false,
           "title": "改期退票",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_js_wifi",
+          "added": false,
           "title": "机上WI-FI",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_dbc",
+          "added": false,
           "title": "代泊车",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_hyfw",
+          "added": false,
           "title": "会员服务",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_yjfk",
+          "added": false,
           "title": "意见反馈",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_hyqx",
+          "added": false,
           "title": "航延取消",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_jfsc",
+          "added": false,
           "title": "积分商城",
           "url": "https://qqe2.com",
           "imgUrl": ""
         },
         {
+          "id": "fw_qykh",
+          "added": false,
           "title": "企业客户",
           "url": "https://qqe2.com",
           "imgUrl": ""
@@ -315,26 +427,36 @@
     "title_tip": "(按住拖动调整排序)",
     "services": [
       {
-        "title": "境外wifi",
-        "url": "https://qqe2.com",
-        "imgUrl": ""
+      "id": "fw_jw_wifi",
+      "added": true,
+      "title": "境外wifi",
+      "url": "https://qqe2.com",
+      "imgUrl": ""
       },
       {
+        "id": "fw_yhzq",
+        "added": true,
         "title": "优惠专区",
         "url": "https://qqe2.com",
         "imgUrl": ""
       },
       {
+        "id": "fw_dmdc",
+        "added": true,
         "title": "地面点餐",
         "url": "https://qqe2.com/",
         "imgUrl": ""
       },
       {
+        "id": "fw_hyfw",
+        "added": true,
         "title": "会员服务",
         "url": "https://qqe2.com",
         "imgUrl": "\"\""
       },
       {
+        "id": "fw_hbdt",
+        "added": true,
         "title": "航班动态",
         "url": "https://qqe2.com/",
         "imgUrl": ""

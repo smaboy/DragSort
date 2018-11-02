@@ -14,6 +14,9 @@ public class ServiceBean {
      * imgUrl :
      */
 
+
+    private String id;
+    private Boolean added;
     private String title;
     private String url;
     private String imgUrl;
