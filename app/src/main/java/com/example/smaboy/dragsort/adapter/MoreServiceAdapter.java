@@ -423,7 +423,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 //滑动事件
-                Collections.swap(myService.getServices(), viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
+                Collections.swap(adapter.getCurServices(), viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
                 adapter.notifyItemMoved(viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
 
 
@@ -433,19 +433,19 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 //侧滑事件
-                myService.getServices().remove(viewHolder.getAdapterPosition());
+                adapter.getCurServices().remove(viewHolder.getAdapterPosition());
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
 
             }
 
             @Override
             public boolean isLongPressDragEnabled() {//默认支持长按拖拽
-                return super.isLongPressDragEnabled();
+                return isEdit;
             }
 
             @Override
             public boolean isItemViewSwipeEnabled() {//默认支持侧滑
-                return super.isItemViewSwipeEnabled();
+                return isEdit;
             }
         });
 

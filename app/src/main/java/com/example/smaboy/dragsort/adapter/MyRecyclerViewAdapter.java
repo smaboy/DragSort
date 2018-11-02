@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.example.smaboy.dragsort.EmptyActivity;
 import com.example.smaboy.dragsort.R;
 import com.example.smaboy.dragsort.bean.MoreService;
+import com.example.smaboy.dragsort.bean.ServiceBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.smaboy.dragsort.R.id.tv_grid_view_title;
 
@@ -29,11 +33,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private Context mContext;
     private MoreService.MyServiceBean myService;
     private Boolean isEdit;
+    private List<ServiceBean> oldServices;//记录操作之前的数据
+    private List<ServiceBean> curServices;//记录此时的数据
 
     MyRecyclerViewAdapter(Context mContext, MoreService.MyServiceBean myService, Boolean isEdit) {
         this.mContext = mContext;
         this.myService = myService;
         this.isEdit=isEdit;
+
+        //适配器首次创建的时候，设置oldServices
+        if(myService!=null&&myService.getServices()!=null) {
+            oldServices=myService.getServices();
+            curServices=oldServices;
+        }
 
     }
 
@@ -46,7 +58,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
 
-        myViewHolder.title.setText(myService.getServices().get(i).getTitle());
+        myViewHolder.title.setText(curServices.get(i).getTitle());
 
         if(isEdit){//编辑状态，item不可点，右上角tag表示显示
             myViewHolder.iv_edit_tag.setVisibility(View.VISIBLE);
@@ -55,7 +67,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(mContext,myService.getServices().get(i).getTitle(), Toast.LENGTH_SHORT).show();
-                    myService.getServices().remove(i);
+                    curServices.remove(i);
                     notifyItemRemoved(i);
                 }
             });
@@ -65,7 +77,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 @Override
                 public void onClick(View v) {
                     Intent intent =new Intent();
-                    intent.putExtra("title",myService.getServices().get(i).getTitle());
+                    intent.putExtra("title",curServices.get(i).getTitle());
                     intent.setClass(mContext,EmptyActivity.class);
                     mContext.startActivity(intent);
                 }
@@ -79,7 +91,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public int getItemCount() {
-        return myService.getServices() == null ? 0 : myService.getServices().size();
+        return curServices==null ? 0 : curServices.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -98,4 +110,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         }
     }
 
+    public List<ServiceBean> getOldServices() {
+        return oldServices;
+    }
+
+    public void setOldServices(List<ServiceBean> oldServices) {
+        this.oldServices = oldServices;
+    }
+
+    public List<ServiceBean> getCurServices() {
+        return curServices;
+    }
+
+    public void setCurServices(List<ServiceBean> curServices) {
+        this.curServices = curServices;
+    }
 }
