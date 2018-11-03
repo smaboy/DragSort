@@ -18,9 +18,11 @@ import com.example.smaboy.dragsort.EmptyActivity;
 import com.example.smaboy.dragsort.R;
 import com.example.smaboy.dragsort.SecondActivity;
 import com.example.smaboy.dragsort.bean.MoreService;
+import com.example.smaboy.dragsort.bean.ServiceBean;
 import com.example.smaboy.dragsort.view.MyGridView;
 
 import java.util.Collections;
+import java.util.List;
 
 /**
  * 类名: MoreServiceAdapter
@@ -50,6 +52,14 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private LayoutInflater layoutInflater;
 
+    private List<ServiceBean> mySercices;
+    private List<ServiceBean> beforeSercices;
+    private List<ServiceBean> middleSercices;
+    private List<ServiceBean> behindSercices;
+    private List<ServiceBean> intelligentSercices;
+    private ItemTouchHelper helper;
+    private MyRecyclerViewAdapter myRecyclerViewAdapter;
+
     public MoreServiceAdapter(Context context, MoreService moreService, Boolean isDefaultSort, Boolean isEdit) {
 
         mContext = context;
@@ -57,6 +67,25 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.isDefaultSort = isDefaultSort;
         this.isEdit = isEdit;
         layoutInflater = LayoutInflater.from(context);
+
+        //初始化各服务组
+        if(moreService!=null) {
+            if(moreService.getMyService().getServices()!=null) {
+                mySercices=moreService.getMyService().getServices();
+            }
+            if(moreService.getDefaul_sort()!=null&&moreService.getDefaul_sort().getBefore()!=null&&moreService.getDefaul_sort().getBefore().getServices()!=null) {
+                beforeSercices=moreService.getDefaul_sort().getBefore().getServices();
+            }
+            if(moreService.getDefaul_sort()!=null&&moreService.getDefaul_sort().getBefore()!=null&&moreService.getDefaul_sort().getMiddle().getServices()!=null) {
+                middleSercices=moreService.getDefaul_sort().getMiddle().getServices();
+            }
+            if(moreService.getDefaul_sort()!=null&&moreService.getDefaul_sort().getBefore()!=null&&moreService.getDefaul_sort().getBehind().getServices()!=null) {
+                behindSercices=moreService.getDefaul_sort().getBehind().getServices();
+            }
+            if(moreService.getIntelligent_sort()!=null&&moreService.getIntelligent_sort().getServices()!=null&&moreService.getIntelligent_sort().getServices().getServices()!=null) {
+                intelligentSercices=moreService.getIntelligent_sort().getServices().getServices();
+            }
+        }
     }
 
     @NonNull
@@ -87,164 +116,181 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (getItemViewType(i) == MY_SERVICE) {
 
-            final MyServiceViewHolder holder = (MyServiceViewHolder) viewHolder;
-            //设置数据
-            holder.title.setText(moreService.getMyService().getTitle());
-
-
-            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
-            layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
-            layoutParams.height = 1;
-            holder.line.setLayoutParams(layoutParams);
-
-            holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
-            MyRecyclerViewAdapter myRecyclerViewAdapter = new MyRecyclerViewAdapter(mContext, moreService.getMyService(), isEdit);
-            holder.recyclerView.setAdapter(myRecyclerViewAdapter);
-
-            if(isEdit){
-                holder.edit.setVisibility(View.GONE);
-
-                holder.tv_my_service_tip.setText(moreService.getMyService().getTitle_tip());
-                holder.tv_my_service_tip.setVisibility(View.VISIBLE);
-
-                //此处还得设置recycerview的拖拽状态（开启）
-                setTouchListener(myRecyclerViewAdapter,holder.recyclerView,moreService.getMyService());
-
-
-
-
-            } else {
-
-                holder.edit.setText(moreService.getEdit());
-                holder.edit.setVisibility(View.VISIBLE);
-
-                holder.tv_my_service_tip.setVisibility(View.GONE);
-
-
-                //此处还得设置recycerview的拖拽状态（关闭），不设置触摸监听即可
-
-
-
-            }
-
-            //设置编辑按钮的监听
-            holder.edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //改变编辑变量的状态
-                    isEdit = true;
-
-                    //隐藏编辑按钮
-                    holder.edit.setVisibility(View.GONE);
-
-                    //根据编辑变量来设置值，并告知相应的activity
-                    //修改activity的标题
-                    if (mContext instanceof SecondActivity) {
-                        SecondActivity activity = (SecondActivity) mContext;
-                        activity.isEdit = true;
-
-                        activity.tv_cancel.setText(moreService.getCancel());//取消
-                        activity.tv_cancel.setVisibility(View.VISIBLE);//显示取消
-                        activity.tv_more_service.setText(moreService.getEdit_my_service());//编辑我的服务
-                        activity.tv_sort.setText(moreService.getFinish());//完成
-                    }
-
-                    //改变更多服务中所有图标的样式（右上角显示，相应状态，我的服务中显示tips，便是可以拖拽排序）
-
-
-
-                    //刷新
-                    notifyDataSetChanged();
-
-                }
-            });
+            bindMyService((MyServiceViewHolder) viewHolder);
 
         } else if (getItemViewType(i) == BEFORE) {
-            BeforeViewHolder holder = (BeforeViewHolder) viewHolder;
-            //设置数据
-            holder.title.setText(moreService.getDefaul_sort().getBefore().getTitle());
 
-            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
-            layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
-            layoutParams.height = 1;
-            holder.line.setLayoutParams(layoutParams);
+            bindBeforeService((BeforeViewHolder) viewHolder);
 
-            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBefore().getServices(),isEdit));
-            holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
-                        go2Activity(moreService.getDefaul_sort().getBefore().getServices().get(position).getTitle());
-                    }
-                }
-            });
         } else if (getItemViewType(i) == MIDDLE) {
 
-            MiddleViewHolder holder = (MiddleViewHolder) viewHolder;
-            //设置数据
-            holder.title.setText(moreService.getDefaul_sort().getMiddle().getTitle());
-
-            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
-            layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
-            layoutParams.height = 1;
-            holder.line.setLayoutParams(layoutParams);
-
-            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getMiddle().getServices(), isEdit));
-            holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
-                        go2Activity(moreService.getDefaul_sort().getMiddle().getServices().get(position).getTitle());
-                    }
-                }
-            });
+            bindMiddleService((MiddleViewHolder) viewHolder);
         } else if (getItemViewType(i) == BEHIND) {
 
-            BehindViewHolder holder = (BehindViewHolder) viewHolder;
-            //设置数据
-            holder.title.setText(moreService.getDefaul_sort().getBehind().getTitle());
-
-            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
-            layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
-            layoutParams.height = 1;
-            holder.line.setLayoutParams(layoutParams);
-
-            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBehind().getServices(), isEdit));
-            holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
-                        go2Activity(moreService.getDefaul_sort().getBehind().getServices().get(position).getTitle());
-                    }
-                }
-            });
+            bindBehindService((BehindViewHolder) viewHolder);
 
         } else if (getItemViewType(i) == INTELLIGENT) {
 
-            IntelligentViewHolder holder = (IntelligentViewHolder) viewHolder;
-            //设置数据
-            holder.title.setText(moreService.getIntelligent_sort().getTitle());
-
-            //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
-            layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
-            layoutParams.height = 1;
-            holder.line.setLayoutParams(layoutParams);
-
-            holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getIntelligent_sort().getServices().getServices(), isEdit));
-            holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
-                        go2Activity(moreService.getIntelligent_sort().getServices().getServices().get(position).getTitle());
-                    }
-                }
-            });
+            bindIntelligentService((IntelligentViewHolder) viewHolder);
         }
+    }
+
+    private void bindIntelligentService(@NonNull IntelligentViewHolder viewHolder) {
+        IntelligentViewHolder holder = viewHolder;
+        //设置数据
+        holder.title.setText(moreService.getIntelligent_sort().getTitle());
+
+        //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+        layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
+        layoutParams.height = 1;
+        holder.line.setLayoutParams(layoutParams);
+
+        holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getIntelligent_sort().getServices().getServices(), isEdit));
+        holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
+                    go2Activity(moreService.getIntelligent_sort().getServices().getServices().get(position).getTitle());
+                }
+            }
+        });
+    }
+
+    private void bindBehindService(@NonNull BehindViewHolder viewHolder) {
+        BehindViewHolder holder = viewHolder;
+        //设置数据
+        holder.title.setText(moreService.getDefaul_sort().getBehind().getTitle());
+
+        //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+        layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
+        layoutParams.height = 1;
+        holder.line.setLayoutParams(layoutParams);
+
+        holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBehind().getServices(), isEdit));
+        holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
+                    go2Activity(moreService.getDefaul_sort().getBehind().getServices().get(position).getTitle());
+                }
+            }
+        });
+    }
+
+    private void bindMiddleService(@NonNull MiddleViewHolder viewHolder) {
+        MiddleViewHolder holder = viewHolder;
+        //设置数据
+        holder.title.setText(moreService.getDefaul_sort().getMiddle().getTitle());
+
+        //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+        layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
+        layoutParams.height = 1;
+        holder.line.setLayoutParams(layoutParams);
+
+        holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getMiddle().getServices(), isEdit));
+        holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
+                    go2Activity(moreService.getDefaul_sort().getMiddle().getServices().get(position).getTitle());
+                }
+            }
+        });
+    }
+
+    private void bindBeforeService(@NonNull BeforeViewHolder viewHolder) {
+        BeforeViewHolder holder = viewHolder;
+        //设置数据
+        holder.title.setText(moreService.getDefaul_sort().getBefore().getTitle());
+
+        //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+        layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
+        layoutParams.height = 1;
+        holder.line.setLayoutParams(layoutParams);
+
+        holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBefore().getServices(),isEdit));
+        holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
+                    go2Activity(moreService.getDefaul_sort().getBefore().getServices().get(position).getTitle());
+                }
+            }
+        });
+    }
+
+    private void bindMyService(@NonNull MyServiceViewHolder viewHolder) {
+        final MyServiceViewHolder holder = viewHolder;
+        //设置数据
+        holder.title.setText(moreService.getMyService().getTitle());
+
+
+        //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+        layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
+        layoutParams.height = 1;
+        holder.line.setLayoutParams(layoutParams);
+
+        holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
+        myRecyclerViewAdapter = new MyRecyclerViewAdapter(mContext, moreService.getMyService(), isEdit);
+        holder.recyclerView.setAdapter(myRecyclerViewAdapter);
+
+
+        if(isEdit){
+            holder.edit.setVisibility(View.GONE);
+
+            holder.tv_my_service_tip.setText(moreService.getMyService().getTitle_tip());
+            holder.tv_my_service_tip.setVisibility(View.VISIBLE);
+
+            //此处还得设置recycerview的拖拽状态（开启）
+            setTouchListener(holder.recyclerView);
+
+
+        } else {
+
+            holder.edit.setText(moreService.getEdit());
+            holder.edit.setVisibility(View.VISIBLE);
+
+            holder.tv_my_service_tip.setVisibility(View.GONE);
+
+
+        }
+
+        //设置编辑按钮的监听
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //改变编辑变量的状态
+                isEdit = true;
+
+                //隐藏编辑按钮
+                holder.edit.setVisibility(View.GONE);
+
+                //根据编辑变量来设置值，并告知相应的activity
+                //修改activity的标题
+                if (mContext instanceof SecondActivity) {
+                    SecondActivity activity = (SecondActivity) mContext;
+                    activity.isEdit = true;
+
+                    activity.tv_cancel.setText(moreService.getCancel());//取消
+                    activity.tv_cancel.setVisibility(View.VISIBLE);//显示取消
+                    activity.tv_more_service.setText(moreService.getEdit_my_service());//编辑我的服务
+                    activity.tv_sort.setText(moreService.getFinish());//完成
+                }
+
+                //改变更多服务中所有图标的样式（右上角显示，相应状态，我的服务中显示tips，便是可以拖拽排序）
+
+
+
+                //刷新
+                notifyDataSetChanged();
+
+            }
+        });
     }
 
     /**
@@ -395,8 +441,11 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return (int) (mContext.getResources().getDisplayMetrics().density * dp);
     }
 
-    private void setTouchListener(final MyRecyclerViewAdapter adapter, RecyclerView recyclerView, final MoreService.MyServiceBean myService) {
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+    private void setTouchListener(RecyclerView recyclerView) {
+        if(helper!=null) {
+            return;
+        }
+         helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
 
@@ -423,8 +472,9 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 //滑动事件
-                Collections.swap(adapter.getCurServices(), viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
-                adapter.notifyItemMoved(viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
+                Collections.swap(mySercices, viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
+                myRecyclerViewAdapter.notifyItemMoved(viewHolder.getAdapterPosition(), viewHolder1.getAdapterPosition());
+
 
 
                 return true;
@@ -433,8 +483,10 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 //侧滑事件
-                adapter.getCurServices().remove(viewHolder.getAdapterPosition());
-                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                mySercices.remove(viewHolder.getAdapterPosition());
+                myRecyclerViewAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+
+
 
             }
 
