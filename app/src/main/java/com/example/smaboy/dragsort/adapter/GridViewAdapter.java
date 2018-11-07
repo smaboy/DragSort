@@ -28,6 +28,20 @@ public class GridViewAdapter extends BaseAdapter {
     private final List<ServiceBean> services;
     private final Boolean isEdit;
 
+    /**
+     * 点击添加的接口
+     *
+     */
+    interface OnClickItemAddListener{
+
+        void onClickItmeAdd(ServiceBean serviceBean);
+    }
+
+    private OnClickItemAddListener onClickItemAddListener;
+    public void setOnClickItemAddListener(OnClickItemAddListener onClickItemAddListener){
+        this.onClickItemAddListener=onClickItemAddListener;
+    }
+
 
     GridViewAdapter(Context mContext, List<ServiceBean> services, Boolean isEdit) {
         this.mContext = mContext;
@@ -85,7 +99,7 @@ public class GridViewAdapter extends BaseAdapter {
                     if(services.get(position).getAdded()){//已经被添加
                         Toast.makeText(mContext, "已经被添加", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(mContext, "可以添加", Toast.LENGTH_SHORT).show();
+                        onClickItemAddListener.onClickItmeAdd(services.get(position));
                     }
 
                 }
