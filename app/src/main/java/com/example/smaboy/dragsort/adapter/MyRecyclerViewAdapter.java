@@ -30,22 +30,24 @@ import static com.example.smaboy.dragsort.R.id.tv_grid_view_title;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
 
 
+    private List<ServiceBean> mySercices;
     private Context mContext;
-    private MoreService.MyServiceBean myService;
     private Boolean isEdit;
-    private List<ServiceBean> oldServices;//记录操作之前的数据
-    private List<ServiceBean> curServices;//记录此时的数据
 
-    MyRecyclerViewAdapter(Context mContext, MoreService.MyServiceBean myService, Boolean isEdit) {
+    private OnClickItemDeleteListener onClickItemDeleteListener;
+    public interface OnClickItemDeleteListener{//设置点击删除的接口
+        void onClickItemDelete(int position);
+    }
+
+    void setOnClickItemDeleteListener(OnClickItemDeleteListener onClickItemDeleteListener) {
+        this.onClickItemDeleteListener = onClickItemDeleteListener;
+    }
+
+    MyRecyclerViewAdapter(Context mContext, List<ServiceBean> mySercices, Boolean isEdit) {
         this.mContext = mContext;
-        this.myService = myService;
+        this.mySercices = mySercices;
         this.isEdit=isEdit;
 
-        //适配器首次创建的时候，设置oldServices
-        if(myService!=null&&myService.getServices()!=null) {
-            oldServices=myService.getServices();
-            curServices=oldServices;
-        }
 
     }
 
@@ -56,9 +58,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
 
-        myViewHolder.title.setText(curServices.get(i).getTitle());
+        myViewHolder.title.setText(mySercices.get(i).getTitle());
 
         if(isEdit){//编辑状态，item不可点，右上角tag表示显示
             myViewHolder.iv_edit_tag.setVisibility(View.VISIBLE);
@@ -67,8 +69,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(mContext,myService.getServices().get(i).getTitle(), Toast.LENGTH_SHORT).show();
-                    curServices.remove(i);
-                    notifyItemRemoved(i);
+//                    curServices.remove(i);
+//                    notifyItemRemoved(i);
+
+                    onClickItemDeleteListener.onClickItemDelete(myViewHolder.getAdapterPosition());
                 }
             });
 
@@ -77,7 +81,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 @Override
                 public void onClick(View v) {
                     Intent intent =new Intent();
-                    intent.putExtra("title",curServices.get(i).getTitle());
+                    intent.putExtra("title",mySercices.get(i).getTitle());
                     intent.setClass(mContext,EmptyActivity.class);
                     mContext.startActivity(intent);
                 }
@@ -91,7 +95,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public int getItemCount() {
-        return curServices==null ? 0 : curServices.size();
+        return mySercices==null ? 0 : mySercices.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -110,19 +114,5 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         }
     }
 
-    public List<ServiceBean> getOldServices() {
-        return oldServices;
-    }
 
-    public void setOldServices(List<ServiceBean> oldServices) {
-        this.oldServices = oldServices;
-    }
-
-    public List<ServiceBean> getCurServices() {
-        return curServices;
-    }
-
-    public void setCurServices(List<ServiceBean> curServices) {
-        this.curServices = curServices;
-    }
 }

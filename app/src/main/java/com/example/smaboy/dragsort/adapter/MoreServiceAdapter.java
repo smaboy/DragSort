@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smaboy.dragsort.EmptyActivity;
 import com.example.smaboy.dragsort.R;
@@ -236,29 +237,28 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.line.setLayoutParams(layoutParams);
 
         holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
-        myRecyclerViewAdapter = new MyRecyclerViewAdapter(mContext, moreService.getMyService(), isEdit);
+        myRecyclerViewAdapter = new MyRecyclerViewAdapter(mContext,mySercices, isEdit);
         holder.recyclerView.setAdapter(myRecyclerViewAdapter);
 
+        //此处还得设置recycerview的拖拽状态（开启和关闭通过isEdit判别）
+        setTouchListener(holder.recyclerView);
 
-        if(isEdit){
-            holder.edit.setVisibility(View.GONE);
+        //设置UI
+        holder.edit.setVisibility(isEdit ? View.GONE : View.VISIBLE);
+        holder.tv_my_service_tip.setVisibility(isEdit ? View.VISIBLE : View.GONE);
+        holder.tv_my_service_tip.setText(moreService.getMyService().getTitle_tip());
+        holder.edit.setText(moreService.getEdit());
 
-            holder.tv_my_service_tip.setText(moreService.getMyService().getTitle_tip());
-            holder.tv_my_service_tip.setVisibility(View.VISIBLE);
+        //设置删除监听
+        myRecyclerViewAdapter.setOnClickItemDeleteListener(new MyRecyclerViewAdapter.OnClickItemDeleteListener() {
+            @Override
+            public void onClickItemDelete(int position) {
+                    mySercices.remove(position);
+                    myRecyclerViewAdapter.notifyItemRemoved(position);
 
-            //此处还得设置recycerview的拖拽状态（开启）
-            setTouchListener(holder.recyclerView);
-
-
-        } else {
-
-            holder.edit.setText(moreService.getEdit());
-            holder.edit.setVisibility(View.VISIBLE);
-
-            holder.tv_my_service_tip.setVisibility(View.GONE);
-
-
-        }
+//                Toast.makeText(mContext, "您点击了"+position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //设置编辑按钮的监听
         holder.edit.setOnClickListener(new View.OnClickListener() {
