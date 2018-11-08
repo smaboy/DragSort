@@ -68,10 +68,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             myViewHolder.iv_edit_tag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Toast.makeText(mContext,myService.getServices().get(i).getTitle(), Toast.LENGTH_SHORT).show();
-//                    curServices.remove(i);
-//                    notifyItemRemoved(i);
 
+                    //注意，这里不要直接使用pisition，不然会造成排序错乱，应该使用myViewHolder.getAdapterPosition()
                     onClickItemDeleteListener.onClickItemDelete(myViewHolder.getAdapterPosition());
                 }
             });

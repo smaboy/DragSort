@@ -67,7 +67,78 @@
 
    4. 我的服务在编辑状态下，点击右上角的移除图标，第一次有效，后面点击出现数组越界
    分析：通过观看日志发现，数组越界
+   这里我们是直接将，onBindViewHolder中的i回调给onClickItemDelete方法，可是我们在这个方法中只处理了，数据删除的通知 myRecyclerViewAdapter.notifyItemRemoved(position);
+   该方法并不会重新走onBindViewHolder。
 
+     @Override
+       public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
+           myViewHolder.title.setText(mySercices.get(i).getTitle());
+
+           if(isEdit){//编辑状态，item不可点，右上角tag表示显示
+               myViewHolder.iv_edit_tag.setVisibility(View.VISIBLE);
+               myViewHolder.iv_edit_tag.setImageResource(R.drawable.delete);
+               myViewHolder.iv_edit_tag.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+
+                       //注意，这里不要直接使用pisition，不然会造成排序错乱，应该使用myViewHolder.getAdapterPosition()
+                       onClickItemDeleteListener.onClickItemDelete(myViewHolder.getAdapterPosition());
+                   }
+               });
+
+           } else {//非编辑状态，item可点，右上角tag不显示
+               myViewHolder.rootView.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Intent intent =new Intent();
+                       intent.putExtra("title",mySercices.get(i).getTitle());
+                       intent.setClass(mContext,EmptyActivity.class);
+                       mContext.startActivity(intent);
+                   }
+               });
+
+               myViewHolder.iv_edit_tag.setVisibility(View.GONE);
+
+           }
+
+       }
+
+* //设置删除监听
+
+        myRecyclerViewAdapter.setOnClickItemDeleteListener(new MyRecyclerViewAdapter.OnClickItemDeleteListener() {
+            @Override
+            public void onClickItemDelete(int position) {
+                //通知其他组，清空添加标识
+                setServiceFromDefultOtherService(mySercices.get(position).getId(), false);
+                setServiceFromInteligentService(mySercices.get(position).getId(), false);
+
+                //移除我的服务中选定服务
+                mySercices.remove(position);
+                myRecyclerViewAdapter.notifyItemRemoved(position);
+
+
+            }
+        });
+
+     5. 添加事件的不同意问（当我们从其他服务中添加服务到我的服务组中，添加标识不统一）
+       解决思路：在点击事件中，设置添加标识，并在回调参数中将要设置的view返回，在一个就是通知其他服务组同一服务的标识要统一
+
+      gridViewAdapter.setOnClickItemAddListener(new GridViewAdapter.OnClickItemAddListener() {
+                   @Override
+                   public void onClickItmeAdd(int position, ImageView iv_edit_tag) {
+                       //点击添加按钮后，将服务添加到我的服务列表中，并将当前点击的服务标记为已添加状态(设置背景图片和设置添加字段的标识)
+                       mySercices.add(beforeSercices.get(position));
+                       myRecyclerViewAdapter.notifyDataSetChanged();
+                       iv_edit_tag.setImageResource(R.drawable.added);
+                       beforeSercices.get(position).setAdded(true);
+                       //设置智能排序组的添加标识
+                       setServiceFromInteligentService(beforeSercices.get(position).getId(), true);
+                   }
+       });
+
+
+     6. 删除事件（我的服务组中，在编辑状态下删除服务，其他组不能同步实时更新）
+      解决思路: 添加标识抹去，获取相应的view或者刷新其他组的适配器
 
 
 ##### 参考资料
