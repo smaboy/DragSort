@@ -34,7 +34,7 @@ public class GridViewAdapter extends BaseAdapter {
      */
     interface OnClickItemAddListener{
 
-        void onClickItmeAdd(ServiceBean serviceBean);
+        void onClickItmeAdd(int position, ImageView iv_edit_tag);
     }
 
     private OnClickItemAddListener onClickItemAddListener;
@@ -66,7 +66,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        MyViewHolder holder;
+        final MyViewHolder holder;
         View view;
         if (convertView == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.grid_view_item, null);
@@ -99,7 +99,7 @@ public class GridViewAdapter extends BaseAdapter {
                     if(services.get(position).getAdded()){//已经被添加
                         Toast.makeText(mContext, "已经被添加", Toast.LENGTH_SHORT).show();
                     } else {
-                        onClickItemAddListener.onClickItmeAdd(services.get(position));
+                        onClickItemAddListener.onClickItmeAdd(position, holder.iv_edit_tag);
                     }
 
                 }

@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.smaboy.dragsort.EmptyActivity;
 import com.example.smaboy.dragsort.R;
@@ -147,13 +147,28 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         layoutParams.height = 1;
         holder.line.setLayoutParams(layoutParams);
 
-        holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getIntelligent_sort().getServices().getServices(), isEdit));
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(mContext, intelligentSercices, isEdit);
+        holder.gridView.setAdapter(gridViewAdapter);
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
                     go2Activity(moreService.getIntelligent_sort().getServices().getServices().get(position).getTitle());
                 }
+            }
+        });
+
+        gridViewAdapter.setOnClickItemAddListener(new GridViewAdapter.OnClickItemAddListener() {
+            @Override
+            public void onClickItmeAdd(int position, ImageView iv_edit_tag) {
+                //点击添加按钮后，将服务添加到我的服务列表中，并将当前点击的服务标记为已添加状态(设置背景图片和设置添加字段的标识)
+                mySercices.add(intelligentSercices.get(position));
+                myRecyclerViewAdapter.notifyDataSetChanged();
+                iv_edit_tag.setImageResource(R.drawable.added);
+                intelligentSercices.get(position).setAdded(true);
+
+                //设置默认组的添加标识
+                setServiceFromDefultOtherService(intelligentSercices.get(position).getId(),true);
             }
         });
     }
@@ -169,13 +184,28 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         layoutParams.height = 1;
         holder.line.setLayoutParams(layoutParams);
 
-        holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getBehind().getServices(), isEdit));
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(mContext, behindSercices, isEdit);
+        holder.gridView.setAdapter(gridViewAdapter);
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
                     go2Activity(moreService.getDefaul_sort().getBehind().getServices().get(position).getTitle());
                 }
+            }
+        });
+
+        gridViewAdapter.setOnClickItemAddListener(new GridViewAdapter.OnClickItemAddListener() {
+            @Override
+            public void onClickItmeAdd(int position, ImageView iv_edit_tag) {
+                //点击添加按钮后，将服务添加到我的服务列表中，并将当前点击的服务标记为已添加状态(设置背景图片和设置添加字段的标识)
+                mySercices.add(behindSercices.get(position));
+                myRecyclerViewAdapter.notifyDataSetChanged();
+                iv_edit_tag.setImageResource(R.drawable.added);
+                behindSercices.get(position).setAdded(true);
+
+                //设置智能排序组的添加标识
+                setServiceFromInteligentService(behindSercices.get(position).getId(),true);
             }
         });
     }
@@ -191,13 +221,27 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         layoutParams.height = 1;
         holder.line.setLayoutParams(layoutParams);
 
-        holder.gridView.setAdapter(new GridViewAdapter(mContext, moreService.getDefaul_sort().getMiddle().getServices(), isEdit));
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(mContext, middleSercices, isEdit);
+        holder.gridView.setAdapter(gridViewAdapter);
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(!isEdit) {//编辑状态不响应点击监听,非编辑状态，响应
                     go2Activity(moreService.getDefaul_sort().getMiddle().getServices().get(position).getTitle());
                 }
+            }
+        });
+
+        gridViewAdapter.setOnClickItemAddListener(new GridViewAdapter.OnClickItemAddListener() {
+            @Override
+            public void onClickItmeAdd(int position, ImageView iv_edit_tag) {
+                //点击添加按钮后，将服务添加到我的服务列表中，并将当前点击的服务标记为已添加状态(设置背景图片和设置添加字段的标识)
+                mySercices.add(middleSercices.get(position));
+                myRecyclerViewAdapter.notifyDataSetChanged();
+                iv_edit_tag.setImageResource(R.drawable.added);
+                middleSercices.get(position).setAdded(true);
+                //设置智能排序组的添加标识
+                setServiceFromInteligentService(middleSercices.get(position).getId(),true);
             }
         });
     }
@@ -213,7 +257,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         layoutParams.height = 1;
         holder.line.setLayoutParams(layoutParams);
 
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(mContext, moreService.getDefaul_sort().getBefore().getServices(), isEdit);
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(mContext, beforeSercices, isEdit);
         holder.gridView.setAdapter(gridViewAdapter);
 
         //设置监听
@@ -227,9 +271,15 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         });
         gridViewAdapter.setOnClickItemAddListener(new GridViewAdapter.OnClickItemAddListener() {
             @Override
-            public void onClickItmeAdd(ServiceBean serviceBean) {
-                mySercices.add(serviceBean);
+            public void onClickItmeAdd(int position, ImageView iv_edit_tag) {
+                //点击添加按钮后，将服务添加到我的服务列表中，并将当前点击的服务标记为已添加状态(设置背景图片和设置添加字段的标识)
+                mySercices.add(beforeSercices.get(position));
                 myRecyclerViewAdapter.notifyDataSetChanged();
+                iv_edit_tag.setImageResource(R.drawable.added);
+                beforeSercices.get(position).setAdded(true);
+
+                //设置智能排序组的添加标识
+                setServiceFromInteligentService(beforeSercices.get(position).getId(),true);
             }
         });
 
@@ -515,6 +565,66 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         helper.attachToRecyclerView(recyclerView);
 
     }
+
+
+    /**
+     *
+     * 通过提供的id，查找在智能排序组中的对应的服务
+     *
+     * @param id 服务id
+     * @param added 添加状态标识字段
+     * @return 成功返回标识
+     */
+    public Boolean setServiceFromInteligentService(String id,Boolean added){
+
+        for(int i = 0; i < intelligentSercices.size(); i++) {
+
+            if(id.equals(intelligentSercices.get(i).getId())) {
+                intelligentSercices.get(i).setAdded(added);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     * 通过提供的id和添加标识符，查找在默认排序其他组中的服务，并设值添加标识
+     *
+     * @param id 服务id
+     * @param added 添加状态标识字段
+     * @return 成功返回标识
+     */
+    public Boolean setServiceFromDefultOtherService(String id,Boolean added){
+
+        for(int i = 0; i < beforeSercices.size(); i++) {
+
+            if(id.equals(beforeSercices.get(i).getId())) {
+                beforeSercices.get(i).setAdded(added);
+                return true;
+            }
+        }
+        for(int i = 0; i < middleSercices.size(); i++) {
+
+            if(id.equals(middleSercices.get(i).getId())) {
+                middleSercices.get(i).setAdded(added);
+                return true;
+            }
+        }
+        for(int i = 0; i < behindSercices.size(); i++) {
+
+            if(id.equals(behindSercices.get(i).getId())) {
+                behindSercices.get(i).setAdded(added);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
 
 }
 
