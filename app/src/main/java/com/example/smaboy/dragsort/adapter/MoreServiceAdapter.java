@@ -24,6 +24,8 @@ import com.example.smaboy.dragsort.view.MyGridView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * 类名: MoreServiceAdapter
@@ -320,40 +322,18 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClickItemDelete(int position) {
                 //通知其他组，清空添加标识
-                int i = setServiceFromDefultOtherService(mySercices.get(position).getId(), false);
+                setServiceFromDefultOtherService(mySercices.get(position).getId(), false);
                 setServiceFromInteligentService(mySercices.get(position).getId(), false);
-
-                //刷新UI
-                if(isDefaultSort){
-                    if(i==0) {
-                        if(beforeGridViewAdapter!=null) {
-
-                            beforeGridViewAdapter.notifyDataSetChanged();
-                        }
-                    }
-                    if(i==1) {
-                        if(middleGridViewAdapter!=null) {
-
-                            middleGridViewAdapter.notifyDataSetChanged();
-                        }
-                    }
-                    if(i==2) {
-                        if(behindGridViewAdapter!=null) {
-
-                            behindGridViewAdapter.notifyDataSetChanged();
-                        }
-                    }
-                } else {
-                    if(intelligentGridViewAdapter!=null) {
-
-                        intelligentGridViewAdapter.notifyDataSetChanged();
-                    }
-
-                }
 
                 //移除我的服务中选定服务
                 mySercices.remove(position);
                 myRecyclerViewAdapter.notifyItemRemoved(position);
+
+                //刷新UI,刷新除了我的服务组之外其他所有服务组
+                notifyItemRangeChanged(1,4);
+
+
+
 
 
             }
@@ -627,33 +607,33 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      *
      * @param id    服务id
      * @param added 添加状态标识字段
-     * @return -1返回标识,0 标识在before，1 标识在middle,2 标识在behind
+     * @return 返回标识
      */
-    private int setServiceFromDefultOtherService(String id, Boolean added) {
+    private Boolean setServiceFromDefultOtherService(String id, Boolean added) {
 
         for (int i = 0; i < beforeSercices.size(); i++) {
 
             if (id.equals(beforeSercices.get(i).getId())) {
                 beforeSercices.get(i).setAdded(added);
-                return 0;
+                return true;
             }
         }
         for (int i = 0; i < middleSercices.size(); i++) {
 
             if (id.equals(middleSercices.get(i).getId())) {
                 middleSercices.get(i).setAdded(added);
-                return 1;
+                return true;
             }
         }
         for (int i = 0; i < behindSercices.size(); i++) {
 
             if (id.equals(behindSercices.get(i).getId())) {
                 behindSercices.get(i).setAdded(added);
-                return 2;
+                return true;
             }
         }
 
-        return -1;
+        return false;
     }
 
 
