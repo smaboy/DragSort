@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:padding="10dp">
 
     <RelativeLayout
@@ -57,6 +58,25 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_marginTop="8dp"-->
         <!--android:numColumns="4"/>-->
+
+    <TextView
+        android:id="@+id/tv_no_add_my_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        tools:text="您还没添加我的服务"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/tv_click_right_up_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        tools:text="请点击右上角按钮进行添加"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"/>
 
 
     <android.support.v7.widget.RecyclerView

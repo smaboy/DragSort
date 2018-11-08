@@ -314,11 +314,15 @@ public class MoreService {
         /**
          * title : 我的服务
          * title_tip : (按住拖动调整排序)
+         * no_add_my_service ： 您还没添加我的服务
+         * click_right_up_button ： 请点击右上角编辑按钮进行添加
          * services : [{"title":"境外wifi","url":"https://qqe2.com","imgUrl":""},{"title":"优惠专区","url":"https://qqe2.com","imgUrl":""},{"title":"地面点餐","url":"https://qqe2.com/","imgUrl":""},{"title":"会员服务","url":"https://qqe2.com","imgUrl":"\"\""},{"title":"航班动态","url":"https://qqe2.com/","imgUrl":""}]
          */
 
         private String title;
         private String title_tip;
+        private String no_add_my_service;
+        private String click_right_up_button;
         private List<ServiceBean> services;
 
         public String getTitle() {
@@ -335,6 +339,22 @@ public class MoreService {
 
         public void setTitle_tip(String title_tip) {
             this.title_tip = title_tip;
+        }
+
+        public String getNo_add_my_service() {
+            return no_add_my_service;
+        }
+
+        public void setNo_add_my_service(String no_add_my_service) {
+            this.no_add_my_service = no_add_my_service;
+        }
+
+        public String getClick_right_up_button() {
+            return click_right_up_button;
+        }
+
+        public void setClick_right_up_button(String click_right_up_button) {
+            this.click_right_up_button = click_right_up_button;
         }
 
         public List<ServiceBean> getServices() {

@@ -2,28 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp">
-
+    android:orientation="vertical">
     <TextView
-        android:id="@+id/tv_behind_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        />
-
-    <TextView
-        android:id="@+id/tv_line"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="5dp"
+        android:background="#55aaaaaa"/>
 
-    <com.example.smaboy.dragsort.view.MyGridView
-        android:id="@+id/gv_behind_grid_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:numColumns="4"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_behind_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            />
+
+        <TextView
+            android:id="@+id/tv_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="10dp"/>
+
+        <com.example.smaboy.dragsort.view.MyGridView
+            android:id="@+id/gv_behind_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:numColumns="4"/>
+
+
+    </LinearLayout>
 
 </LinearLayout>

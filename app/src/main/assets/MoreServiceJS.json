@@ -425,6 +425,8 @@
   "myService": {
     "title": "我的服务",
     "title_tip": "(按住拖动调整排序)",
+    "no_add_my_service":"您还没添加我的服务",
+    "click_right_up_button":"请点击右上角编辑按钮进行添加",
     "services": [
       {
       "id": "fw_jw_wifi",
