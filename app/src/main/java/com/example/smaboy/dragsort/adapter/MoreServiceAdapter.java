@@ -326,17 +326,29 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 //刷新UI
                 if(isDefaultSort){
                     if(i==0) {
-                        beforeGridViewAdapter.notifyDataSetChanged();
+                        if(beforeGridViewAdapter!=null) {
+
+                            beforeGridViewAdapter.notifyDataSetChanged();
+                        }
                     }
                     if(i==1) {
-                        middleGridViewAdapter.notifyDataSetChanged();
+                        if(middleGridViewAdapter!=null) {
+
+                            middleGridViewAdapter.notifyDataSetChanged();
+                        }
                     }
                     if(i==2) {
-                        beforeGridViewAdapter.notifyDataSetChanged();
+                        if(behindGridViewAdapter!=null) {
+
+                            behindGridViewAdapter.notifyDataSetChanged();
+                        }
                     }
                 } else {
+                    if(intelligentGridViewAdapter!=null) {
 
-                    intelligentGridViewAdapter.notifyDataSetChanged();
+                        intelligentGridViewAdapter.notifyDataSetChanged();
+                    }
+
                 }
 
                 //移除我的服务中选定服务
