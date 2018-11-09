@@ -11,14 +11,14 @@
       "services": [
         {
         "id": "fw_xyx",
-        "added": false,
+        "added": true,
         "title": "校园行",
         "url": "https://qqe2.com",
         "imgUrl": ""
       },
         {
           "id": "fw_yhzq",
-          "added": false,
+          "added": true,
           "title": "优惠专区",
           "url": "https://qqe2.com",
           "imgUrl": ""
@@ -427,6 +427,43 @@
     "title_tip": "(按住拖动调整排序)",
     "no_add_my_service":"您还没添加我的服务",
     "click_right_up_button":"请点击右上角编辑按钮进行添加",
-    "services":null
+    "services":
+    [
+      {
+      "id": "fw_jw_wifi",
+      "added": true,
+      "title": "境外wifi",
+      "url": "https://qqe2.com",
+      "imgUrl": ""
+      },
+      {
+        "id": "fw_yhzq",
+        "added": true,
+        "title": "优惠专区",
+        "url": "https://qqe2.com",
+        "imgUrl": ""
+      },
+      {
+        "id": "fw_dmdc",
+        "added": true,
+        "title": "地面点餐",
+        "url": "https://qqe2.com/",
+        "imgUrl": ""
+      },
+      {
+        "id": "fw_hyfw",
+        "added": true,
+        "title": "会员服务",
+        "url": "https://qqe2.com",
+        "imgUrl": "\"\""
+      },
+      {
+        "id": "fw_hbdt",
+        "added": true,
+        "title": "航班动态",
+        "url": "https://qqe2.com/",
+        "imgUrl": ""
+      }
+    ]
   }
 }

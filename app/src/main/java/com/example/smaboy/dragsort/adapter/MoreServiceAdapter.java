@@ -22,6 +22,7 @@ import com.example.smaboy.dragsort.bean.MoreService;
 import com.example.smaboy.dragsort.bean.ServiceBean;
 import com.example.smaboy.dragsort.view.MyGridView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private LayoutInflater layoutInflater;
 
-    private List<ServiceBean> mySercices;
+    private List<ServiceBean> mySercices=new ArrayList<>();
     private List<ServiceBean> beforeSercices;
     private List<ServiceBean> middleSercices;
     private List<ServiceBean> behindSercices;
