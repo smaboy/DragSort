@@ -1,4 +1,4 @@
-package com.example.smaboy.dragsort;
+package com.example.smaboy.dragsort.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
+import com.example.smaboy.dragsort.R;
 import com.example.smaboy.dragsort.adapter.MyAdpter;
 import com.example.smaboy.dragsort.bean.NewsBean;
 

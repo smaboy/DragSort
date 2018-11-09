@@ -15,14 +15,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.smaboy.dragsort.EmptyActivity;
+import com.example.smaboy.dragsort.activity.EmptyActivity;
 import com.example.smaboy.dragsort.R;
-import com.example.smaboy.dragsort.SecondActivity;
+import com.example.smaboy.dragsort.activity.SecondActivity;
 import com.example.smaboy.dragsort.bean.MoreService;
 import com.example.smaboy.dragsort.bean.ServiceBean;
+import com.example.smaboy.dragsort.utils.SPUtils;
 import com.example.smaboy.dragsort.view.MyGridView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,10 +63,6 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<ServiceBean> intelligentSercices;
     private ItemTouchHelper helper;
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
-    private GridViewAdapter beforeGridViewAdapter;
-    private GridViewAdapter middleGridViewAdapter;
-    private GridViewAdapter behindGridViewAdapter;
-    private GridViewAdapter intelligentGridViewAdapter;
     private MyServiceViewHolder myServiceViewholder;
 
     public MoreServiceAdapter(Context context, MoreService moreService, Boolean isDefaultSort, Boolean isEdit) {
@@ -153,7 +151,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         layoutParams.height = 1;
         holder.line.setLayoutParams(layoutParams);
 
-        intelligentGridViewAdapter = new GridViewAdapter(mContext, intelligentSercices, isEdit);
+        GridViewAdapter intelligentGridViewAdapter = new GridViewAdapter(mContext, intelligentSercices, isEdit);
         holder.gridView.setAdapter(intelligentGridViewAdapter);
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -193,7 +191,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         layoutParams.height = 1;
         holder.line.setLayoutParams(layoutParams);
 
-        behindGridViewAdapter = new GridViewAdapter(mContext, behindSercices, isEdit);
+        GridViewAdapter behindGridViewAdapter = new GridViewAdapter(mContext, behindSercices, isEdit);
         holder.gridView.setAdapter(behindGridViewAdapter);
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -234,7 +232,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         layoutParams.height = 1;
         holder.line.setLayoutParams(layoutParams);
 
-        middleGridViewAdapter = new GridViewAdapter(mContext, middleSercices, isEdit);
+        GridViewAdapter middleGridViewAdapter = new GridViewAdapter(mContext, middleSercices, isEdit);
         holder.gridView.setAdapter(middleGridViewAdapter);
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -273,7 +271,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         layoutParams.height = 1;
         holder.line.setLayoutParams(layoutParams);
 
-        beforeGridViewAdapter = new GridViewAdapter(mContext, beforeSercices, isEdit);
+        GridViewAdapter beforeGridViewAdapter = new GridViewAdapter(mContext, beforeSercices, isEdit);
         holder.gridView.setAdapter(beforeGridViewAdapter);
 
         //设置监听
@@ -368,6 +366,10 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         myServiceViewholder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //记录此时各服务组的数据
+                saveServiceData();
+
                 //改变编辑变量的状态
                 isEdit = true;
 
@@ -395,6 +397,28 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         });
     }
+
+    /**
+     * 保存各服务组数据
+     *
+     */
+    private void saveServiceData() {
+        SPUtils.getInstance(mContext).put("my_service", Arrays.toString(mySercices.toArray()));
+        SPUtils.getInstance(mContext).put("before", Arrays.toString(beforeSercices.toArray()));
+        SPUtils.getInstance(mContext).put("middle", Arrays.toString(middleSercices.toArray()));
+        SPUtils.getInstance(mContext).put("behind", Arrays.toString(behindSercices.toArray()));
+        SPUtils.getInstance(mContext).put("intelligent", Arrays.toString(intelligentSercices.toArray()));
+
+
+    }
+
+
+    public void setServiceData(){
+
+
+    }
+
+
 
     private void setMyServiceIsEmptyUI(MyServiceViewHolder holder) {
         if(mySercices==null||mySercices.size()==0) {

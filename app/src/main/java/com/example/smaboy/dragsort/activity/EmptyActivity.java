@@ -1,4 +1,4 @@
-package com.example.smaboy.dragsort;
+package com.example.smaboy.dragsort.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.smaboy.dragsort.R;
 
 /**
  * 类名: EmptyActivity

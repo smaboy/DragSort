@@ -1,12 +1,14 @@
 package com.example.smaboy.dragsort.bean;
 
+import java.io.Serializable;
+
 /**
  * 类名: ServiceBean
  * 类作用描述: java类作用描述
  * 作者: Smaboy
  * 创建时间: 2018/10/30 16:53
  */
-public class ServiceBean {
+public class ServiceBean implements Serializable {
 
     /**
      * title : 校园行
@@ -59,5 +61,16 @@ public class ServiceBean {
 
     public void setAdded(Boolean added) {
         this.added = added;
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceBean{" +
+                "id='" + id + '\'' +
+                ", added=" + added +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                '}';
     }
 }

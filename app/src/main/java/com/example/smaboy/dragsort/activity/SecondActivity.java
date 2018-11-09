@@ -1,4 +1,4 @@
-package com.example.smaboy.dragsort;
+package com.example.smaboy.dragsort.activity;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
@@ -10,13 +10,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.smaboy.dragsort.R;
 import com.example.smaboy.dragsort.adapter.MoreServiceAdapter;
 import com.example.smaboy.dragsort.bean.MoreService;
+import com.example.smaboy.dragsort.bean.ServiceBean;
+import com.example.smaboy.dragsort.utils.SPUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -24,6 +29,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 类名: SecondActivity
@@ -163,10 +172,27 @@ public class SecondActivity extends Activity implements View.OnClickListener {
 
                 }
 
-
                 //取消编辑状态,刷新适配器的数据
-
                 isEdit=false;
+
+                //取出在编辑之前保存的数据，并刷新适配器
+
+                String me=SPUtils.getInstance(this).getString("my_service");
+                String before=SPUtils.getInstance(this).getString("before");
+                String middle=SPUtils.getInstance(this).getString("middle");
+                String behind=SPUtils.getInstance(this).getString("behind");
+                String intelligent=SPUtils.getInstance(this).getString("intelligent");
+
+
+//                moreServiceAdapter.setServiceData();
+
+
+                Log.e("TAG", "我的服务组编辑之前的数据1:"+me+"\n");
+                Log.e("TAG", "我的服务组编辑之前的数据2:"+before+"\n");
+                Log.e("TAG", "我的服务组编辑之前的数据3:"+middle+"\n");
+                Log.e("TAG", "我的服务组编辑之前的数据4:"+behind+"\n");
+                Log.e("TAG", "我的服务组编辑之前的数据5:"+intelligent+"\n");
+
 
                 //刷新recyclerview
                 moreServiceAdapter.setEdit(false);

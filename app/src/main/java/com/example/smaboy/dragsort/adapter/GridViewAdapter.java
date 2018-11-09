@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.smaboy.dragsort.EmptyActivity;
+import com.example.smaboy.dragsort.activity.EmptyActivity;
 import com.example.smaboy.dragsort.R;
 import com.example.smaboy.dragsort.bean.ServiceBean;
 
