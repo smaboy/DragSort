@@ -9,17 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.smaboy.dragsort.EmptyActivity;
 import com.example.smaboy.dragsort.R;
-import com.example.smaboy.dragsort.bean.MoreService;
 import com.example.smaboy.dragsort.bean.ServiceBean;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.smaboy.dragsort.R.id.tv_grid_view_title;
 
 /**
  * 类名: MyRecyclerViewAdapter
@@ -36,7 +31,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     private OnClickItemDeleteListener onClickItemDeleteListener;
     public interface OnClickItemDeleteListener{//设置点击删除的接口
-        void onClickItemDelete(int position);
+        void onClickItemDelete(int position, int itemCount);
     }
 
     void setOnClickItemDeleteListener(OnClickItemDeleteListener onClickItemDeleteListener) {
@@ -70,7 +65,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 public void onClick(View v) {
 
                     //注意，这里不要直接使用pisition，不然会造成排序错乱，应该使用myViewHolder.getAdapterPosition()
-                    onClickItemDeleteListener.onClickItemDelete(myViewHolder.getAdapterPosition());
+                    onClickItemDeleteListener.onClickItemDelete(myViewHolder.getAdapterPosition(),getItemCount());
                 }
             });
 

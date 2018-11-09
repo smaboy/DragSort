@@ -24,8 +24,6 @@ import com.example.smaboy.dragsort.view.MyGridView;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 /**
  * 类名: MoreServiceAdapter
@@ -66,6 +64,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private GridViewAdapter middleGridViewAdapter;
     private GridViewAdapter behindGridViewAdapter;
     private GridViewAdapter intelligentGridViewAdapter;
+    private MyServiceViewHolder myServiceViewholder;
 
     public MoreServiceAdapter(Context context, MoreService moreService, Boolean isDefaultSort, Boolean isEdit) {
 
@@ -175,6 +174,9 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 //设置默认组的添加标识
                 setServiceFromDefultOtherService(intelligentSercices.get(position).getId(), true);
+
+                //判别我的服务组的UI是否为空来控制显示
+                setMyServiceIsEmptyUI(myServiceViewholder);
             }
         });
     }
@@ -212,6 +214,10 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 //设置智能排序组的添加标识
                 setServiceFromInteligentService(behindSercices.get(position).getId(), true);
+
+
+                //判别我的服务组的UI是否为空来控制显示
+                setMyServiceIsEmptyUI(myServiceViewholder);
             }
         });
     }
@@ -248,6 +254,9 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 middleSercices.get(position).setAdded(true);
                 //设置智能排序组的添加标识
                 setServiceFromInteligentService(middleSercices.get(position).getId(), true);
+
+                //判别我的服务组的UI是否为空来控制显示
+                setMyServiceIsEmptyUI(myServiceViewholder);
             }
         });
     }
@@ -279,13 +288,18 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClickItmeAdd(int position, ImageView iv_edit_tag) {
                 //点击添加按钮后，将服务添加到我的服务列表中，并将当前点击的服务标记为已添加状态(设置背景图片和设置添加字段的标识)
+
                 mySercices.add(beforeSercices.get(position));
                 myRecyclerViewAdapter.notifyDataSetChanged();
+
                 iv_edit_tag.setImageResource(R.drawable.added);
                 beforeSercices.get(position).setAdded(true);
 
                 //设置智能排序组的添加标识
                 setServiceFromInteligentService(beforeSercices.get(position).getId(), true);
+
+                //判别我的服务组的UI是否为空来控制显示
+                setMyServiceIsEmptyUI(myServiceViewholder);
 
             }
         });
@@ -293,34 +307,39 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void bindMyService(@NonNull MyServiceViewHolder viewHolder) {
-        final MyServiceViewHolder holder = viewHolder;
+        myServiceViewholder = viewHolder;
         //设置数据
-        holder.title.setText(moreService.getMyService().getTitle());
+        myServiceViewholder.title.setText(moreService.getMyService().getTitle());
+        myServiceViewholder.tv_no_add_my_service.setText(moreService.getMyService().getNo_add_my_service());
+        myServiceViewholder.tv_click_right_up_button.setText(moreService.getMyService().getClick_right_up_button());
 
+        setMyServiceIsEmptyUI(myServiceViewholder);
 
         //该步骤设置，可以使嵌套在recyclerview中的gridview正常显示
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.line.getLayoutParams();
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) myServiceViewholder.line.getLayoutParams();
         layoutParams.width = mContext.getResources().getDisplayMetrics().widthPixels;
         layoutParams.height = 1;
-        holder.line.setLayoutParams(layoutParams);
+        myServiceViewholder.line.setLayoutParams(layoutParams);
 
-        holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
+        myServiceViewholder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
         myRecyclerViewAdapter = new MyRecyclerViewAdapter(mContext, mySercices, isEdit);
-        holder.recyclerView.setAdapter(myRecyclerViewAdapter);
+        myServiceViewholder.recyclerView.setAdapter(myRecyclerViewAdapter);
 
         //此处还得设置recycerview的拖拽状态（开启和关闭通过isEdit判别）
-        setTouchListener(holder.recyclerView);
+        setTouchListener(myServiceViewholder.recyclerView);
 
         //设置UI
-        holder.edit.setVisibility(isEdit ? View.GONE : View.VISIBLE);
-        holder.tv_my_service_tip.setVisibility(isEdit ? View.VISIBLE : View.GONE);
-        holder.tv_my_service_tip.setText(moreService.getMyService().getTitle_tip());
-        holder.edit.setText(moreService.getEdit());
+        myServiceViewholder.edit.setVisibility(isEdit ? View.GONE : View.VISIBLE);
+        myServiceViewholder.tv_my_service_tip.setVisibility(isEdit ? View.VISIBLE : View.GONE);
+        myServiceViewholder.tv_my_service_tip.setText(moreService.getMyService().getTitle_tip());
+        myServiceViewholder.edit.setText(moreService.getEdit());
 
         //设置删除监听
         myRecyclerViewAdapter.setOnClickItemDeleteListener(new MyRecyclerViewAdapter.OnClickItemDeleteListener() {
             @Override
-            public void onClickItemDelete(int position) {
+            public void onClickItemDelete(int position, int itemCount) {
+
+
                 //通知其他组，清空添加标识
                 setServiceFromDefultOtherService(mySercices.get(position).getId(), false);
                 setServiceFromInteligentService(mySercices.get(position).getId(), false);
@@ -328,6 +347,11 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 //移除我的服务中选定服务
                 mySercices.remove(position);
                 myRecyclerViewAdapter.notifyItemRemoved(position);
+
+                //当删除的时候是最后一个item时，显示空的UI
+                if(position==itemCount-1) {
+                    setMyServiceIsEmptyUI(myServiceViewholder);
+                }
 
                 //刷新UI,刷新除了我的服务组之外其他所有服务组
                 notifyItemRangeChanged(1,4);
@@ -340,14 +364,14 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         });
 
         //设置编辑按钮的监听
-        holder.edit.setOnClickListener(new View.OnClickListener() {
+        myServiceViewholder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //改变编辑变量的状态
                 isEdit = true;
 
                 //隐藏编辑按钮
-                holder.edit.setVisibility(View.GONE);
+                myServiceViewholder.edit.setVisibility(View.GONE);
 
                 //根据编辑变量来设置值，并告知相应的activity
                 //修改activity的标题
@@ -369,6 +393,16 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             }
         });
+    }
+
+    private void setMyServiceIsEmptyUI(MyServiceViewHolder holder) {
+        if(mySercices==null||mySercices.size()==0) {
+            holder.tv_no_add_my_service.setVisibility(View.VISIBLE);
+            holder.tv_click_right_up_button.setVisibility(isEdit ? View.GONE : View.VISIBLE);
+        }else {
+            holder.tv_no_add_my_service.setVisibility(View.GONE);
+            holder.tv_click_right_up_button.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -424,6 +458,8 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     class MyServiceViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
+        TextView tv_no_add_my_service;
+        TextView tv_click_right_up_button;
         RecyclerView recyclerView;
         TextView line;
         TextView edit;
@@ -433,6 +469,8 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(itemView);
 
             title = itemView.findViewById(R.id.tv_my_service_title);
+            tv_no_add_my_service = itemView.findViewById(R.id.tv_no_add_my_service);
+            tv_click_right_up_button = itemView.findViewById(R.id.tv_click_right_up_button);
             recyclerView = itemView.findViewById(R.id.recycler_my_service);
             line = itemView.findViewById(R.id.tv_line);
             edit = itemView.findViewById(R.id.tv_edit);
