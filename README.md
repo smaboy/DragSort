@@ -4,6 +4,14 @@
 #####  撸码原因
      --->每当看到那么优秀交互效果，总想着它该怎么实现，所以心动不如行动!
 
+##### 效果图
+
+*   话不多说，先奉上效果图（案例参考的原图，请看参考图例）
+
+ <img src="app/src/main/assets/sort1.gif">
+ <img src="app/src/main/assets/sort2.gif">
+
+
 #####  撸码准备
  * 思路
       * 采用RecyclerView,更加灵活。通过布局管理器可以灵活的设置布局
@@ -103,27 +111,27 @@
 
        }
 
-* //设置删除监听
+   5. 设置删除监听
 
-        myRecyclerViewAdapter.setOnClickItemDeleteListener(new MyRecyclerViewAdapter.OnClickItemDeleteListener() {
+
+       myRecyclerViewAdapter.setOnClickItemDeleteListener(new MyRecyclerViewAdapter.OnClickItemDeleteListener() {
             @Override
             public void onClickItemDelete(int position) {
                 //通知其他组，清空添加标识
                 setServiceFromDefultOtherService(mySercices.get(position).getId(), false);
                 setServiceFromInteligentService(mySercices.get(position).getId(), false);
-
                 //移除我的服务中选定服务
                 mySercices.remove(position);
                 myRecyclerViewAdapter.notifyItemRemoved(position);
-
-
             }
-        });
+      });
 
-     5. 添加事件的不同意问（当我们从其他服务中添加服务到我的服务组中，添加标识不统一）
+
+
+   6. 添加事件的不同意问（当我们从其他服务中添加服务到我的服务组中，添加标识不统一）
        解决思路：在点击事件中，设置添加标识，并在回调参数中将要设置的view返回，在一个就是通知其他服务组同一服务的标识要统一
 
-      gridViewAdapter.setOnClickItemAddListener(new GridViewAdapter.OnClickItemAddListener() {
+     gridViewAdapter.setOnClickItemAddListener(new GridViewAdapter.OnClickItemAddListener() {
                    @Override
                    public void onClickItmeAdd(int position, ImageView iv_edit_tag) {
                        //点击添加按钮后，将服务添加到我的服务列表中，并将当前点击的服务标记为已添加状态(设置背景图片和设置添加字段的标识)
@@ -134,12 +142,21 @@
                        //设置智能排序组的添加标识
                        setServiceFromInteligentService(beforeSercices.get(position).getId(), true);
                    }
-       });
+      });
 
 
-     6. 删除事件（我的服务组中，在编辑状态下删除服务，其他组不能同步实时更新）
+   7. 删除事件（我的服务组中，在编辑状态下删除服务，其他组不能同步实时更新）
       解决思路: 添加标识抹去，获取相应的view或者刷新其他组的适配器
       通过id查找在哪个分组，抹去标识，并刷新该分组适配器
+
+
+   7. 取消按钮
+      - 思路分析 ：将各个适配器中的数据还原到编辑之前的状态
+      - 思考：
+           1. 由于我们在主适配器中将各服务分组数据设置为成员变量了，所以不能直接用另一个成员变量来保存编辑之前成员变量，因为此时我们保存的只不过
+            是该成员变量的一个引用，他们的实际数据最终都会指向同一个。（此处须注意）/n
+           2. 我是将编辑之前的数据保存sp中，如果我们这个模块箱保持和服务器同步，可将我们各服务分组中的数据上传到服务进行保存。这就可以实现，同一账号
+            在不同设备中，我的服务的统一。
 
 
 
