@@ -184,14 +184,25 @@ public class SecondActivity extends Activity implements View.OnClickListener {
                 String intelligent=SPUtils.getInstance(this).getString("intelligent");
 
 
-//                moreServiceAdapter.setServiceData();
+                moreServiceAdapter.setServiceData();
 
 
-                Log.e("TAG", "我的服务组编辑之前的数据1:"+me+"\n");
-                Log.e("TAG", "我的服务组编辑之前的数据2:"+before+"\n");
-                Log.e("TAG", "我的服务组编辑之前的数据3:"+middle+"\n");
-                Log.e("TAG", "我的服务组编辑之前的数据4:"+behind+"\n");
-                Log.e("TAG", "我的服务组编辑之前的数据5:"+intelligent+"\n");
+//                Log.e("TAG", "我的服务组编辑之前的数据1:"+me+"\n");
+//                Log.e("TAG", "我的服务组编辑之前的数据2:"+before+"\n");
+//                Log.e("TAG", "我的服务组编辑之前的数据3:"+middle+"\n");
+//                Log.e("TAG", "我的服务组编辑之前的数据4:"+behind+"\n");
+//                Log.e("TAG", "我的服务组编辑之前的数据5:"+intelligent+"\n");
+//
+//                List<ServiceBean> my=new ArrayList<>();
+//                Gson gson = new GsonBuilder().create();
+//                JsonArray jsonArray = gson.fromJson(me, JsonArray.class);
+//                for(int i = 0; i < jsonArray.size(); i++) {
+//                  ServiceBean serviceBean=gson.fromJson(jsonArray.get(i),ServiceBean.class);
+//                  my.add(serviceBean);
+//
+//                }
+
+
 
 
                 //刷新recyclerview

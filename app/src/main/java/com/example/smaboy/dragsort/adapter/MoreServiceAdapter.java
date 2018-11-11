@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,9 @@ import com.example.smaboy.dragsort.bean.MoreService;
 import com.example.smaboy.dragsort.bean.ServiceBean;
 import com.example.smaboy.dragsort.utils.SPUtils;
 import com.example.smaboy.dragsort.view.MyGridView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +61,7 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private LayoutInflater layoutInflater;
 
     private List<ServiceBean> mySercices=new ArrayList<>();
+    private List<ServiceBean> oldMySercices;
     private List<ServiceBean> beforeSercices;
     private List<ServiceBean> middleSercices;
     private List<ServiceBean> behindSercices;
@@ -64,6 +69,8 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ItemTouchHelper helper;
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
     private MyServiceViewHolder myServiceViewholder;
+
+    private Gson gson;
 
     public MoreServiceAdapter(Context context, MoreService moreService, Boolean isDefaultSort, Boolean isEdit) {
 
@@ -91,6 +98,9 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 intelligentSercices = moreService.getIntelligent_sort().getServices().getServices();
             }
         }
+
+        //初始化gson
+        gson=new Gson();
     }
 
     @NonNull
@@ -399,15 +409,18 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     /**
+     *
+     * 以json数据串的形式，将数据保存到本地
      * 保存各服务组数据
      *
      */
     private void saveServiceData() {
-        SPUtils.getInstance(mContext).put("my_service", Arrays.toString(mySercices.toArray()));
-        SPUtils.getInstance(mContext).put("before", Arrays.toString(beforeSercices.toArray()));
-        SPUtils.getInstance(mContext).put("middle", Arrays.toString(middleSercices.toArray()));
-        SPUtils.getInstance(mContext).put("behind", Arrays.toString(behindSercices.toArray()));
-        SPUtils.getInstance(mContext).put("intelligent", Arrays.toString(intelligentSercices.toArray()));
+
+        SPUtils.getInstance(mContext).put("my_service", gson.toJson(mySercices));
+        SPUtils.getInstance(mContext).put("before", gson.toJson(beforeSercices));
+        SPUtils.getInstance(mContext).put("middle", gson.toJson(middleSercices));
+        SPUtils.getInstance(mContext).put("behind", gson.toJson(behindSercices));
+        SPUtils.getInstance(mContext).put("intelligent", gson.toJson(intelligentSercices));
 
 
     }
@@ -415,9 +428,37 @@ public class MoreServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void setServiceData(){
 
+        //取出数据
+        String my_service=SPUtils.getInstance(mContext).getString("my_service");
+        String before=SPUtils.getInstance(mContext).getString("before");
+        String middle=SPUtils.getInstance(mContext).getString("middle");
+        String behind=SPUtils.getInstance(mContext).getString("behind");
+        String intelligent=SPUtils.getInstance(mContext).getString("intelligent");
+
+
+        //重新设置数据
+        mySercices=getServiceBeanByJson(my_service);
+        beforeSercices=getServiceBeanByJson(before);
+        middleSercices=getServiceBeanByJson(middle);
+        behindSercices=getServiceBeanByJson(behind);
+        intelligentSercices=getServiceBeanByJson(intelligent);
+
+
 
     }
 
+    private List<ServiceBean> getServiceBeanByJson(String me) {
+
+        List<ServiceBean> sbs=new ArrayList<>();
+        JsonArray jsonArray = gson.fromJson(me, JsonArray.class);
+        for(int i = 0; i < jsonArray.size(); i++) {
+            ServiceBean serviceBean=gson.fromJson(jsonArray.get(i),ServiceBean.class);
+            sbs.add(serviceBean);
+
+        }
+
+        return sbs;
+    }
 
 
     private void setMyServiceIsEmptyUI(MyServiceViewHolder holder) {
